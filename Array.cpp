@@ -52,13 +52,13 @@ double Array::ReadCell(int x, int y, char* mode) {
 		
 		double timeZero = 1e-06;
 
-		static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->cycleCount * static_cast<eNVM*>(cell[x][y])->cycleTime;
+		static_cast<eNVM*>(cell[x][y])->waitTime = (static_cast<eNVM*>(cell[x][y])->cycleCount) * (static_cast<eNVM*>(cell[x][y])->cycleTime);
 		double waitTimesec = static_cast<eNVM*>(cell[x][y])->waitTime;
 
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
-		static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero / (waitTimesec)), 0.031);
+		//static_cast<eNVM*>(cell[x][y])->conductance *= pow((timeZero / (waitTimesec)), 0.031);
 
 		/*
 		if ((static_cast<eNVM*>(cell[x][y])->conductance) < (static_cast<eNVM*>(cell[x][y])->minConductance)) {
