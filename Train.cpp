@@ -118,6 +118,16 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 	for (int t = 0; t < epochs; t++) {
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
 
+
+			//is_finalbatch
+			bool finalbatch;
+			if (batchSize == numTrain - 1) finalbatch = true;
+			else finalbatch = false;
+
+			bool batchSizeZero;
+			if (param->currentEpoch > 1 || batchSize > 0) batchSizeZero = false;
+
+
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
             //int i = 1;       // use this value for debug
 			// Forward propagation
@@ -158,6 +168,29 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
               double IsumMin = 0; 
 							double inputSum = 0;    // Weighted sum current of input vector * weight=1 column
 							for (int k=0; k<param->nInput; k++) {
+
+								/*arrayIH readTime estimation*/
+								if (batchSizeZero == false) {
+
+									double timeZero = 1e-06;
+
+									static_cast<AnalogNVM*>(arrayIH->cell[j][k])->waitTime = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->cycleCount * static_cast<AnalogNVM*>(arrayIH->cell[j][k])->cycleTime;
+
+									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
+									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
+
+									static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance *= pow((timeZero / (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->waitTime)), 0.031);
+
+									if ((static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance) < (static_cast<RealDevice*>(arrayIH->cell[j][k])->minConductance)) {
+										static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance = static_cast<RealDevice*>(arrayIH->cell[j][k])->minConductance;
+									}
+
+									if ((static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance) > (static_cast<RealDevice*>(arrayIH->cell[j][k])->maxConductance)) {
+										static_cast<AnalogNVM*>(arrayIH->cell[j][k])->conductance = static_cast<RealDevice*>(arrayIH->cell[j][k])->maxConductance;
+									}
+								}
+
+
 								if ((dInput[i][k]>>n) & 1) {    // if the nth bit of dInput[i][k] is 1
 									Isum += arrayIH->ReadCell(j,k);
                                     inputSum += arrayIH->GetMediumCellReadCurrent(j,k);    // get current of Dummy Column as reference
@@ -304,6 +337,29 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
               double IsumMin = 0; 
 							double a1Sum = 0;    // Weighted sum current of input vector * weight=1 column                            
 							for (int k=0; k<param->nHide; k++) {
+
+								/*arrayHO readTime estimation*/
+								if (batchSizeZero == false) {
+
+									double timeZero = 1e-06;
+
+									static_cast<AnalogNVM*>(arrayHO->cell[j][k])->waitTime = static_cast<AnalogNVM*>(arrayHO->cell[j][k])->cycleCount * static_cast<AnalogNVM*>(arrayHO->cell[j][k])->cycleTime;
+
+									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
+									//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
+
+									static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance *= pow((timeZero / (static_cast<AnalogNVM*>(arrayHO->cell[j][k])->waitTime)), 0.031);
+
+									if ((static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance) < (static_cast<RealDevice*>(arrayHO->cell[j][k])->minConductance)) {
+										static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance = static_cast<RealDevice*>(arrayHO->cell[j][k])->minConductance;
+									}
+
+									if ((static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance) > (static_cast<RealDevice*>(arrayHO->cell[j][k])->maxConductance)) {
+										static_cast<AnalogNVM*>(arrayHO->cell[j][k])->conductance = static_cast<RealDevice*>(arrayHO->cell[j][k])->maxConductance;
+									}
+								}
+
+
 								if ((da1[k]>>n) & 1) {    // if the nth bit of da1[k] is 1  
 							 		Isum += arrayHO->ReadCell(j,k);
                                     a1Sum +=arrayHO->GetMediumCellReadCurrent(j,k);
@@ -532,6 +588,17 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
                             
 							if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
 							    arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
+
+								/*latestWriteTime estimation*/
+								if (!(deltaWeight1[jj][k] == 0)) {
+									static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->cycleCount = 1;
+								}
+								else {
+									static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->cycleCount += 1;
+								}
+
+
+
 							    weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight); 
                                 weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
                                 if(fabs(static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse) > maxPulseNum)
@@ -841,6 +908,16 @@ double s2[param->nOutput];  // Output delta from hidden layer to the output laye
 				
 							if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[jj][k])) { // Analog eNVM
                                 arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
+
+								/*latestWriteTime estimation*/
+								if (!(deltaWeight2[jj][k] == 0)) {
+									static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->cycleCount = 1;
+								}
+								else {
+									static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->cycleCount += 1;
+								}
+
+
 							    weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;
                                 if(fabs(static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse) > maxPulseNum)

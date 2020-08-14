@@ -143,6 +143,14 @@ public:
       else
           return readVoltage * avgMinConductance;}
 	void WriteEnergyCalculation(double wireCapCol);
+
+
+	//For cycleTime
+	int cycleCount;
+	double cycleTime = 0.1;
+	dounle cycleTime;
+
+
 };
 
 class DigitalNVM: public eNVM {
