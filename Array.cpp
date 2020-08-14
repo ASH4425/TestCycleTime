@@ -45,11 +45,11 @@ double Array::ReadCell(int x, int y, char* mode) {
     // it should be "MSB_LTP","MSB_LTD" or "LSB" 
 
 
-
+	
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) // Analog eNVM
 		{	
 
-
+		/*
 		double timeZero = 1e-06;
 
 		static_cast<eNVM*>(cell[x][y])->waitTime = static_cast<eNVM*>(cell[x][y])->cycleCount * static_cast<eNVM*>(cell[x][y])->cycleTime;
@@ -66,7 +66,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 		if ((static_cast<eNVM*>(cell[x][y])->conductance) > (static_cast<eNVM*>(cell[x][y])->maxConductance)) {
 			static_cast<eNVM*>(cell[x][y])->conductance = static_cast<eNVM*>(cell[x][y])->maxConductance;
 		}
-
+		*/
 
 		double readVoltage = static_cast<eNVM*>(cell[x][y])->readVoltage;
         //printf("read voltage is %.4f\n", readVoltage);
@@ -199,13 +199,14 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
     { 
 		
 		/*latestWriteTime estimation*/
+		/*
 		if (!(deltaWeight == 0)) {
 			static_cast<eNVM*>(cell[x][y])->cycleCount = 1;
 		}
 		else {
 			static_cast<eNVM*>(cell[x][y])->cycleCount += 1;
 		}
-
+		*/
 
 		//printf("Writing cell....\n");
         if (regular) 
