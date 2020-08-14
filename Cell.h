@@ -148,7 +148,7 @@ public:
 	//For cycleTime
 	int cycleCount;
 	double cycleTime = 0.1;
-	double cycleTime;
+	double waitTime;
 
 
 };
