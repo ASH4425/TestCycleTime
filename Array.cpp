@@ -60,7 +60,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
 		double conductanceNew = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
-		static_cast<eNVM*>(cell[x][y])->conductance = conductanceNew;
+		//static_cast<eNVM*>(cell[x][y])->conductance = conductanceNew;
 
 		/*
 		if ((static_cast<eNVM*>(cell[x][y])->conductance) < (static_cast<eNVM*>(cell[x][y])->minConductance)) {
