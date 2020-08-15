@@ -548,7 +548,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
 
-								if (j == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch" << '\n';
+								if (jj == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch" << '\n';
 
 
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
@@ -870,7 +870,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[jj][k])) { // Analog eNVM
 
-								if (j == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch" << '\n';
+								if (jj == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch" << '\n';
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
