@@ -161,6 +161,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							double inputSum = 0;    // Weighted sum current of input vector * weight=1 column
 							for (int k = 0; k < param->nInput; k++) {
 								if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
+
+									if (j == 50 && k == 50) cout << "Call ReadCell at arrayIH" << endl;
+
 									Isum += arrayIH->ReadCell(j, k);
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
 									sumArrayReadEnergy += arrayIH->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)
@@ -310,6 +313,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							double a1Sum = 0;    // Weighted sum current of input vector * weight=1 column                            
 							for (int k = 0; k < param->nHide; k++) {
 								if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1  
+
+									if (j == 50 && k == 50) cout << "Call ReadCell at arrayHO" << endl;
+
 									Isum += arrayHO->ReadCell(j, k);
 									a1Sum += arrayHO->GetMediumCellReadCurrent(j, k);
 									sumArrayReadEnergy += arrayHO->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)								                                  
@@ -538,6 +544,8 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							 */
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
+
+								if (jj == 50 && k == 50) cout << "Call WriteCell at arrayIH" << endl;
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
@@ -856,6 +864,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 						   */
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[jj][k])) { // Analog eNVM
+
+								if (jj == 50 && k == 50) cout << "Call WriteCell at arrayHO" << endl;
+
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;
