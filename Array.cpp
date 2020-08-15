@@ -62,8 +62,8 @@ double Array::ReadCell(int x, int y, char* mode) {
 		double conductanceLocal = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
 		//static_cast<eNVM*>(cell[x][y])->conductance = conductanceNew;//아마 여기서는 conductance값을 읽을수만 있고 쓰지는 못하는듯
 		
-		if (conductanceLocal > static_cast<eNVM*>(cell[x][y])->maxConductance) conductanceNew =  static_cast<eNVM*>(cell[x][y])->maxConductance;
-		if (conductanceLocal < static_cast<eNVM*>(cell[x][y])->minConductance) conductanceNew =  static_cast<eNVM*>(cell[x][y])->minConductance;
+		if (conductanceLocal > static_cast<eNVM*>(cell[x][y])->maxConductance) conductanceLocal =  static_cast<eNVM*>(cell[x][y])->maxConductance;
+		if (conductanceLocal < static_cast<eNVM*>(cell[x][y])->minConductance) conductanceLocal =  static_cast<eNVM*>(cell[x][y])->minConductance;
 		
 		/*
 		if ((static_cast<eNVM*>(cell[x][y])->conductance) < (static_cast<eNVM*>(cell[x][y])->minConductance)) {
