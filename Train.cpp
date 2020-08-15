@@ -48,6 +48,8 @@
 #include "NeuroSim.h"
 #include <iostream>
 
+using namespace std;
+
 extern Param* param;
 
 extern std::vector< std::vector<double> > Input;
