@@ -223,6 +223,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 	// TODO: include wire resistance
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) // Analog eNVM
     { 
+		if (x == 1 && y == 1) cout << " " << endl;
 		if (x == 1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << endl;
 
 		/*latestWriteTime estimation*/
@@ -233,6 +234,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 			static_cast<eNVM*>(cell[x][y])->cycleCount += 1;
 		}
 		if (x == 1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << endl;
+		if (x == 1 && y == 1) cout << " " << endl;
 
 		//printf("Writing cell....\n");
         if (regular) 
