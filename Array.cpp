@@ -63,11 +63,14 @@ double Array::ReadCell(int x, int y, char* mode) {
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
 		double conductanceLocal = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
+		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->conductance << std::endl;
 		if(x==1 && y == 1) std::cout <<conductanceLocal << std::endl;
+		/*
 		if(x==10 && y == 10) std::cout <<conductanceLocal << std::endl;
 		if(x==100 && y == 100) std::cout <<conductanceLocal << std::endl;
 		if(x==50 && y == 1) std::cout <<conductanceLocal << std::endl;
 		if(x==15 && y == 13) std::cout <<conductanceLocal << std::endl;
+		*/
 		//static_cast<eNVM*>(cell[x][y])->conductance = conductanceNew;//아마 여기서는 conductance값을 읽을수만 있고 쓰지는 못하는듯
 		
 		//if (conductanceLocal > static_cast<eNVM*>(cell[x][y])->maxConductance) conductanceLocal =  static_cast<eNVM*>(cell[x][y])->maxConductance;
