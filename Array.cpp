@@ -63,6 +63,10 @@ double Array::ReadCell(int x, int y, char* mode) {
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
 		double conductanceLocal = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
+
+		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->cycleCount << std::endl;
+		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->cycleTime << std::endl;
+		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->waitTime << std::endl;
 		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->conductance << std::endl;
 		if(x==1 && y == 1) std::cout <<conductanceLocal << std::endl;
 		/*
