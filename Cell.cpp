@@ -298,7 +298,7 @@ RealDevice::RealDevice(int x, int y) {
 	NL = 10;    // I-V nonlinearity in write scheme (the current ratio between Vw and Vw/2), assuming for the LTP side
 
 	/*For cycleTime*/
-	cycleCount = 1;
+	cycleCount;
 	cycleTime = 0.1;
 
 	if (nonlinearIV) {  // Currently for cross-point array only
