@@ -146,6 +146,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 			}
 		}
         //printf("The current is %.4e\n",cellCurrent);
+		if (x == 1 && y == 1) cout << "Finish ReadCell" << endl;
 		return cellCurrent;
 
 	} 
@@ -219,7 +220,6 @@ double Array::ReadCell(int x, int y, char* mode) {
 		
 		return weightDigits;
 	}
-	if (x == 1 && y == 1) cout << "Finish ReadCell" << endl;
 }
 
 void Array::WriteCell(int x, int y, double deltaWeight, double weight, double maxWeight, double minWeight, 
