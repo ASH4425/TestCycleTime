@@ -132,6 +132,7 @@ int main() {
 	
 	for (int i=1; i<=param->totalNumEpochs/param->interNumEpochs; i++) {
 
+		param->currentEpoch = i;
         cout << "Training Epoch : " << i << endl;
 
 

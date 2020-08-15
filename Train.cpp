@@ -165,7 +165,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							for (int k = 0; k < param->nInput; k++) {
 								if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
 
-									if (j == 1 && k == 1) cout << "ReadCellAtarrayIH" << '\n';
+									if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 
 									Isum += arrayIH->ReadCell(j, k);
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
@@ -317,7 +317,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							for (int k = 0; k < param->nHide; k++) {
 								if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1  
 
-									if (j == 1 && k == 1) cout << "ReadCellAtarrayHO" << '\n';
+									if (j == 1 && k == 1) cout << "arrayHO call Read at " << param->currentEpoch << " Epoch" << '\n';
 
 									Isum += arrayHO->ReadCell(j, k);
 									a1Sum += arrayHO->GetMediumCellReadCurrent(j, k);
@@ -548,7 +548,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
 
-								if (jj == 1 && k == 1) cout << "WriteCellAtarrayIH" << '\n';
+								if (j == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch" << '\n';
+
+
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
@@ -868,7 +870,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[jj][k])) { // Analog eNVM
 
-								if (jj == 1 && k == 1) cout << "WriteCellAt arrayHO" << '\n';
+								if (j == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch" << '\n';
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);

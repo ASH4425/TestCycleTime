@@ -64,10 +64,12 @@ double Array::ReadCell(int x, int y, char* mode) {
 
 		double conductanceLocal = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
 
+		/*
 		if (x == 1 && y == 1) cout << "Call ReadCell" << '\n';
 		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->cycleCount << '\n';
 		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->cycleTime << '\n';
 		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->waitTime << '\n';
+		*/
 		
 		//if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->conductance << std::endl;
 		//if(x==1 && y == 1) std::cout <<conductanceLocal << std::endl;
@@ -146,8 +148,13 @@ double Array::ReadCell(int x, int y, char* mode) {
 			}
 		}
         //printf("The current is %.4e\n",cellCurrent);
+
+		/*
 		if (x == 1 && y == 1) cout << "Finish ReadCell" << '\n';
 		if (x == 1 && y == 1) cout << " " << '\n';
+		*/
+
+
 		return cellCurrent;
 
 	} 
@@ -228,11 +235,12 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 	// TODO: include wire resistance
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) // Analog eNVM
     { 
+		/*
 		if (x == 1 && y == 1) cout << " " << '\n';
 		if (x == 1 && y == 1) cout << "Call WriteCell" << '\n';
 		if (x == 1 && y == 1) cout << "deltaWeight : " << deltaWeight << '\n';
 		if (x == 1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << '\n';
-
+		*/
 
 		/*latestWriteTime estimation*/
 		if (deltaWeight != 0.0) {
@@ -319,8 +327,10 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 			}
 		}
 	}
+	/*
 	if (x == 1 && y == 1) cout << "Finish WriteCell " << '\n';
 	if (x == 1 && y == 1) cout << " " << '\n';
+	*/
 }
 
 double Array::GetMaxCellReadCurrent(int x, int y, char* mode) { 

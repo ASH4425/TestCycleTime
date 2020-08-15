@@ -61,6 +61,7 @@ Param::Param() {
     optimization_type = "SGD";
 
 
+
 	/* Hardware parameters */
 	useHardwareInTrainingFF = true;   // Use hardware in the feed forward part of training or not (true: realistic hardware, false: ideal software)
 	useHardwareInTrainingWU = true;   // Use hardware in the weight update part of training or not (true: realistic hardware, false: ideal software)
