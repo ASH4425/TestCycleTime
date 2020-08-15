@@ -64,11 +64,13 @@ double Array::ReadCell(int x, int y, char* mode) {
 
 		double conductanceLocal = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
 
+		if (x == 1 && y == 1) cout << "Call ReadCell" << endl;
 		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->cycleCount << std::endl;
 		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->cycleTime << std::endl;
 		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->waitTime << std::endl;
-		if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->conductance << std::endl;
-		if(x==1 && y == 1) std::cout <<conductanceLocal << std::endl;
+		
+		//if (x == 1 && y == 1) std::cout << static_cast<eNVM*>(cell[x][y])->conductance << std::endl;
+		//if(x==1 && y == 1) std::cout <<conductanceLocal << std::endl;
 		/*
 		if(x==10 && y == 10) std::cout <<conductanceLocal << std::endl;
 		if(x==100 && y == 100) std::cout <<conductanceLocal << std::endl;
@@ -214,6 +216,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 				weightDigits += static_cast<SRAM*>(cell[(x+1) * numCellPerSynapse - (n+1)][y])->bit * pow(2, n);    // If the rightmost is LSB
 			}
 		}
+		if (x == 1 && y == 1) cout << "Finish ReadCell" << endl;
 		return weightDigits;
 	}
 }
@@ -224,6 +227,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) // Analog eNVM
     { 
 		if (x == 1 && y == 1) cout << " " << endl;
+		if (x == 1 && y == 1) cout << "Call WriteCell" << endl;
 		if (x == 1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << endl;
 
 		/*latestWriteTime estimation*/
@@ -234,7 +238,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 			static_cast<eNVM*>(cell[x][y])->cycleCount += 1;
 		}
 		if (x == 1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << endl;
-		if (x == 1 && y == 1) cout << " " << endl;
+		
 
 		//printf("Writing cell....\n");
         if (regular) 
@@ -308,6 +312,8 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 			}
 		}
 	}
+	if (x == 1 && y == 1) cout << "Finish WriteCell " << endl;
+	if (x == 1 && y == 1) cout << " " << endl;
 }
 
 double Array::GetMaxCellReadCurrent(int x, int y, char* mode) { 

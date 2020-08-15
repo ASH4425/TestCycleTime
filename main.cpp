@@ -132,7 +132,7 @@ int main() {
 	
 	for (int i=1; i<=param->totalNumEpochs/param->interNumEpochs; i++) {
 
-        //cout << "Training Epoch : " << i << endl;
+        cout << "Training Epoch : " << i << endl;
 
 
 		Train(param->numTrainImagesPerEpoch, param->interNumEpochs,param->optimization_type);
