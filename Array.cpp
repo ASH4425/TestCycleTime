@@ -244,14 +244,14 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 
 		/*latestWriteTime estimation*/
 		if (deltaWeight != 0.0) {
-			cout << "if" << endl;
+			//cout << "if" << endl;
 			static_cast<eNVM*>(cell[x][y])->cycleCount = 1;
 		}else {
-			cout << "else" << endl;
+			//cout << "else" << endl;
 			static_cast<eNVM*>(cell[x][y])->cycleCount++;
 		}
 
-		if (x == 50 && y == 50) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << endl;
+		//if (x == 50 && y == 50) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << endl;
 		
 		
 
