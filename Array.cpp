@@ -235,9 +235,9 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 
 
 		/*latestWriteTime estimation*/
-		if (!(deltaWeight == 0)) {
+		if (!(deltaWeight == 0.0)) {
 			static_cast<eNVM*>(cell[x][y])->cycleCount = 1;
-		}else if(deltaWeight == 0){
+		}else if(deltaWeight == 0.0){
 			static_cast<eNVM*>(cell[x][y])->cycleCount++;
 		}
 
