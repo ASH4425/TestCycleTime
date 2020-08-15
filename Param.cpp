@@ -43,7 +43,7 @@
 Param::Param() {
 	/* MNIST dataset */
 	numMnistTrainImages = 60000;// # of training images in MNIST
-	numMnistTestImages = 10;	// # of testing images in MNIST
+	numMnistTestImages = 10000;	// # of testing images in MNIST
 	
 	/* Algorithm parameters */
 	numTrainImagesPerEpoch = 20;	// # of training images per epoch
