@@ -147,6 +147,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 		}
         //printf("The current is %.4e\n",cellCurrent);
 		if (x == 1 && y == 1) cout << "Finish ReadCell" << endl;
+		if (x == 1 && y == 1) cout << " " << endl;
 		return cellCurrent;
 
 	} 
