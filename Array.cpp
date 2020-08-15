@@ -59,11 +59,11 @@ double Array::ReadCell(int x, int y, char* mode) {
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
-		double conductanceNew = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
-		//static_cast<eNVM*>(cell[x][y])->conductance = conductanceNew;//아마 여기서는 conductance값을 읽을수만 있고 쓰지는 못하는듯....
+		double conductanceLocal = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
+		//static_cast<eNVM*>(cell[x][y])->conductance = conductanceNew;//아마 여기서는 conductance값을 읽을수만 있고 쓰지는 못하는듯
 		
-		if (conductanceNew > static_cast<eNVM*>(cell[x][y])->maxConductance) conductanceNew =  static_cast<eNVM*>(cell[x][y])->maxConductance;
-		if (conductanceNew < static_cast<eNVM*>(cell[x][y])->minConductance) conductanceNew =  static_cast<eNVM*>(cell[x][y])->minConductance;
+		if (conductanceLocal > static_cast<eNVM*>(cell[x][y])->maxConductance) conductanceNew =  static_cast<eNVM*>(cell[x][y])->maxConductance;
+		if (conductanceLocal < static_cast<eNVM*>(cell[x][y])->minConductance) conductanceNew =  static_cast<eNVM*>(cell[x][y])->minConductance;
 		
 		/*
 		if ((static_cast<eNVM*>(cell[x][y])->conductance) < (static_cast<eNVM*>(cell[x][y])->minConductance)) {
@@ -117,11 +117,11 @@ double Array::ReadCell(int x, int y, char* mode) {
 			if (static_cast<eNVM*>(cell[x][y])->readNoise) 
             {
 				extern std::mt19937 gen;
-				cellCurrent = readVoltage / (1/ conductanceNew * (1 + (*static_cast<eNVM*>(cell[x][y])->gaussian_dist)(gen)) + totalWireResistance);
+				cellCurrent = readVoltage / (1/ conductanceLocal * (1 + (*static_cast<eNVM*>(cell[x][y])->gaussian_dist)(gen)) + totalWireResistance);
 			} 
             else 
             {
-				cellCurrent = readVoltage / (1/ conductanceNew + totalWireResistance);
+				cellCurrent = readVoltage / (1/ conductanceLocal + totalWireResistance);
 			}
 		}
         //printf("The current is %.4e\n",cellCurrent);
