@@ -136,8 +136,8 @@ double Array::ReadCell(int x, int y, char* mode) {
 			} 
             else 
             {
-				cout << conductanceLocal << endl;
-				cout << static_cast<eNVM*>(cell[x][y])->conductance << endl;
+				if (x == 1 && y == 1) cout << conductanceLocal << endl;
+				if(x==1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->conductance << endl;
 
 				cellCurrent = readVoltage / (1/conductanceLocal + totalWireResistance);
 				
