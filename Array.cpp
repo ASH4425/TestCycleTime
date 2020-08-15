@@ -216,9 +216,10 @@ double Array::ReadCell(int x, int y, char* mode) {
 				weightDigits += static_cast<SRAM*>(cell[(x+1) * numCellPerSynapse - (n+1)][y])->bit * pow(2, n);    // If the rightmost is LSB
 			}
 		}
-		if (x == 1 && y == 1) cout << "Finish ReadCell" << endl;
+		
 		return weightDigits;
 	}
+	if (x == 1 && y == 1) cout << "Finish ReadCell" << endl;
 }
 
 void Array::WriteCell(int x, int y, double deltaWeight, double weight, double maxWeight, double minWeight, 
