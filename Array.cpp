@@ -136,8 +136,8 @@ double Array::ReadCell(int x, int y, char* mode) {
 			} 
             else 
             {
-				if (x == 1 && y == 1) cout << conductanceLocal << endl;
-				if(x==1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->conductance << endl;
+				//if (x == 1 && y == 1) cout << conductanceLocal << endl;
+				//if(x==1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->conductance << endl;
 
 				cellCurrent = readVoltage / (1/conductanceLocal + totalWireResistance);
 				
@@ -223,7 +223,8 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 	// TODO: include wire resistance
 	if (AnalogNVM *temp = dynamic_cast<AnalogNVM*>(**cell)) // Analog eNVM
     { 
-		
+		if (x == 1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << endl;
+
 		/*latestWriteTime estimation*/
 		if (!(deltaWeight == 0)) {
 			static_cast<eNVM*>(cell[x][y])->cycleCount = 1;
@@ -231,7 +232,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 		else {
 			static_cast<eNVM*>(cell[x][y])->cycleCount += 1;
 		}
-		
+		if (x == 1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->cycleCount << endl;
 
 		//printf("Writing cell....\n");
         if (regular) 
