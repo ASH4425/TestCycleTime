@@ -163,6 +163,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							double IsumMin = 0;
 							double inputSum = 0;    // Weighted sum current of input vector * weight=1 column
 							for (int k = 0; k < param->nInput; k++) {
+
+								if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
+
 								if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
 
 									if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
