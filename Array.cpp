@@ -136,7 +136,11 @@ double Array::ReadCell(int x, int y, char* mode) {
 			} 
             else 
             {
-				cellCurrent = readVoltage / (1/static_cast<eNVM*>(cell[x][y])->conductance + totalWireResistance);
+				cout << conductanceLocal << endl;
+				cout << static_cast<eNVM*>(cell[x][y])->conductance << endl;
+
+				cellCurrent = readVoltage / (1/conductanceLocal + totalWireResistance);
+				
 			}
 		}
         //printf("The current is %.4e\n",cellCurrent);
