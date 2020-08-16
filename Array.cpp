@@ -44,7 +44,7 @@
 using namespace std;
 
 int counter=0;
-double Array::ReadCell(int x, int y, double cycleWaitTime, char* mode) {
+double Array::ReadCell(int x, int y, char* mode) {
     // mode is only for the 3T1C cell to select LSB or MSB
     // it should be "MSB_LTP","MSB_LTD" or "LSB" 
 

@@ -189,7 +189,11 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 									//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 
-									Isum += arrayIH->ReadCell(j, k, cycleWaitTimeIH[j][k]);
+									static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime = cycleWaitTimeIH[j][k];
+									if (j == 1 && k == 1) cout << "arrayIH->waitTime : " << static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime << '\n';
+									if (j == 1 && k == 1) cout << "cycleWaitTimeIH[j][k] : " << cycleWaitTimeIH[j][k] << '\n';
+									
+									Isum += arrayIH->ReadCell(j, k);
 
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
 									sumArrayReadEnergy += arrayIH->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)
@@ -254,7 +258,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								int inputSum = 0;
 								for (int k = 0; k < param->nInput; k++) {
 									if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
-										Dsum += (int)(arrayIH->ReadCell(j, k, 1));
+										Dsum += (int)(arrayIH->ReadCell(j, k));
 										inputSum += pow(2, arrayIH->numCellPerSynapse - 1) - 1;   // get the digital weights of the dummy column as reference
 									}
 									DsumMax += pow(2, arrayIH->numCellPerSynapse) - 1;
@@ -345,8 +349,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1  
 
 									
+									static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime = cycleWaitTimeHO[j][k];
 
-									Isum += arrayHO->ReadCell(j, k, 1);
+									Isum += arrayHO->ReadCell(j, k);
 									a1Sum += arrayHO->GetMediumCellReadCurrent(j, k);
 									sumArrayReadEnergy += arrayHO->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)								                                  
 								}
@@ -407,7 +412,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								int a1Sum = 0;
 								for (int k = 0; k < param->nHide; k++) {
 									if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1
-										Dsum += (int)(arrayHO->ReadCell(j, k, 1));
+										Dsum += (int)(arrayHO->ReadCell(j, k));
 										a1Sum += pow(2, arrayHO->numCellPerSynapse - 1) - 1;    // get current of Dummy Column as reference
 									}
 									DsumMax += pow(2, arrayHO->numCellPerSynapse) - 1;
