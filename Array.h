@@ -139,7 +139,7 @@ public:
 		
 	}
 
-	double ReadCell(int x, int y,char*mode=NULL);	// x (column) and y (row) start from index 0
+	double ReadCell(int x, int y, double cycleWaitTIme, char*mode=NULL);	// x (column) and y (row) start from index 0
 	void WriteCell(int x, int y, double deltaWeight, double weight, double maxWeight, double minWeight, bool regular);
 	double GetMaxCellReadCurrent(int x, int y, char*mode=NULL);
 	double GetMinCellReadCurrent(int x, int y, char*mode=NULL);
