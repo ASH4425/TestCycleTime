@@ -168,7 +168,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
 
-									if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
+									//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 
 									Isum += arrayIH->ReadCell(j, k);
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
