@@ -55,6 +55,9 @@ double Array::ReadCell(int x, int y, char* mode) {
 
 		
 		double timeZero = 1e-06;
+		double timeRatio = timeZero / static_cast<eNVM*>(cell[x][y])->waitTime;
+		static_cast<eNVM*>(cell[x][y])->conductance *= pow(timeRatio, 0.031);
+		
 
 		//static_cast<eNVM*>(cell[x][y])->waitTime = (static_cast<eNVM*>(cell[x][y])->cycleCount) * (static_cast<eNVM*>(cell[x][y])->cycleTime);
 		//double waitTimesec = static_cast<eNVM*>(cell[x][y])->waitTime;
@@ -149,7 +152,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 				cellCurrent = readVoltage / ((1 / conductanceAfter) + totalWireResistance);
 				*/
 
-				cellCurrent = readVoltage / (1/ (static_cast<eNVM*>(cell[x][y])->conductance)*3 + totalWireResistance);
+				cellCurrent = readVoltage / (1/ (static_cast<eNVM*>(cell[x][y])->conductance) + totalWireResistance);
 				//cellCurrent = readVoltage / (1 / (static_cast<eNVM*>(cell[x][y])->conductance * (pow((timeZero / static_cast<eNVM*>(cell[x][y])->waitTime), 0.031))) + totalWireResistance);
 			}
 		}
