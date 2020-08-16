@@ -290,24 +290,21 @@ RealDevice::RealDevice(int x, int y) {
 	maxNumLevelLTP = 97;	// Maximum number of conductance states during LTP or weight increase
 	maxNumLevelLTD = 100;	// Maximum number of conductance states during LTD or weight decrease
 	numPulse = 0;	// Number of write pulses used in the most recent write operation (dynamic variable)
-	cmosAccess = true;	// True: Pseudo-crossbar (1T1R), false: cross-point
+	cmosAccess = false;	// True: Pseudo-crossbar (1T1R), false: cross-point
 	FeFET = false;		// True: FeFET structure (Pseudo-crossbar only, should be cmosAccess=1)
 	gateCapFeFET = 2.1717e-18;	// Gate capacitance of FeFET (F)
 	resistanceAccess = 15e3;	// The resistance of transistor (Ohm) in Pseudo-crossbar array when turned ON
 	nonlinearIV = false;	// Consider I-V nonlinearity or not (Currently for cross-point array only)
 	NL = 10;    // I-V nonlinearity in write scheme (the current ratio between Vw and Vw/2), assuming for the LTP side
 
-	/*For cycleTime*/
-	cycleCount;
-	cycleTime = 0.1;
-
+	
 	if (nonlinearIV) {  // Currently for cross-point array only
 		double Vr_exp = readVoltage;  // XXX: Modify this value to Vr in the reported measurement data (can be different than readVoltage)
 		// Calculation of conductance at on-chip Vr
 		maxConductance = NonlinearConductance(maxConductance, NL, writeVoltageLTP, Vr_exp, readVoltage);
 		minConductance = NonlinearConductance(minConductance, NL, writeVoltageLTP, Vr_exp, readVoltage);
 	}
-	nonlinearWrite = true;	// Consider weight update nonlinearity or not
+	nonlinearWrite = false;	// Consider weight update nonlinearity or not
 	nonIdenticalPulse = false;	// Use non-identical pulse scheme in weight update or not
 	if (nonIdenticalPulse) {
 		VinitLTP = 2.85;	// Initial write voltage for LTP or weight increase (V)
