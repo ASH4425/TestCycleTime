@@ -127,8 +127,8 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 			//cycleArray Initialization
 			if (param->currentEpoch == 1 && batchSize == 0) {
-				int cycleArrayIH[param->nHide][param->nInput] = { 0, };
-				int cycleArrayHO[param->nOutput][param->nHide] = { 0, };
+				int cycleArrayIH[param->nHide][param->nInput] = { 0 };
+				int cycleArrayHO[param->nOutput][param->nHide] = { 0 };
 			}
 
 
