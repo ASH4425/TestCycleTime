@@ -44,7 +44,7 @@
 using namespace std;
 
 int counter=0;
-double Array::ReadCell(int x, int y, char* mode) {
+double Array::ReadCell(int x, int y, double cycleWaitTime, char* mode) {
     // mode is only for the 3T1C cell to select LSB or MSB
     // it should be "MSB_LTP","MSB_LTD" or "LSB" 
 
@@ -56,13 +56,13 @@ double Array::ReadCell(int x, int y, char* mode) {
 		
 		double timeZero = 1e-06;
 
-		static_cast<eNVM*>(cell[x][y])->waitTime = (static_cast<eNVM*>(cell[x][y])->cycleCount) * (static_cast<eNVM*>(cell[x][y])->cycleTime);
-		double waitTimesec = static_cast<eNVM*>(cell[x][y])->waitTime;
+		//static_cast<eNVM*>(cell[x][y])->waitTime = (static_cast<eNVM*>(cell[x][y])->cycleCount) * (static_cast<eNVM*>(cell[x][y])->cycleTime);
+		//double waitTimesec = static_cast<eNVM*>(cell[x][y])->waitTime;
 
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff < static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->mindriftCoeff;
 		//if (static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff > static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff) static_cast<AnalogNVM*>(arrayIH->cell[j][k])->driftCoeff = static_cast<AnalogNVM*>(arrayIH->cell[j][k])->maxdriftCoeff;
 
-		double conductanceLocal = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
+		//double conductanceLocal = static_cast<eNVM*>(cell[x][y])->conductance * pow((timeZero / (waitTimesec)), 0.031);
 
 		/*
 		if (x == 1 && y == 1) cout << "Call ReadCell" << '\n';
@@ -143,7 +143,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 				//if (x == 1 && y == 1) cout << conductanceLocal << endl;
 				//if(x==1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->conductance << endl;
 
-				cellCurrent = readVoltage / (1/ static_cast<eNVM*>(cell[x][y])->conductance + totalWireResistance);
+				cellCurrent = readVoltage / (1/ (static_cast<eNVM*>(cell[x][y])->conductance * (pow((timeZero/cycleWaitTime),0.031))) + totalWireResistance);
 				
 			}
 		}

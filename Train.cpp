@@ -122,16 +122,19 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 	for (int t = 0; t < epochs; t++) {
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
 
+			double cycleTime = 0.1; // one cycle duration (Write~Read)
 			int cycleArrayIH[param->nHide][param->nInput];
 			int cycleArrayHO[param->nOutput][param->nHide];
+			double cycleWaitTimeIH[param->nHide][param->nInput];
+			double cycleWaitTimeHO[param->nOutput][param->nHide];
 
 			//cycleArray Initialization
 			if (param->currentEpoch == 1 && batchSize == 0) {
 				for (int p = 0; p < param->nHide; p++) {
-					memset(cycleArrayIH[p], 0, sizeof(int) * param->nInput);
+					memset(cycleArrayIH[p], 1, sizeof(int) * param->nInput);
 				}
 				for (int q = 0; q < param->nOutput; q++) {
-					memset(cycleArrayHO[q], 0, sizeof(int) * param->nHide);
+					memset(cycleArrayHO[q], 1, sizeof(int) * param->nHide);
 				}
 			}
 
@@ -179,13 +182,15 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							double inputSum = 0;    // Weighted sum current of input vector * weight=1 column
 							for (int k = 0; k < param->nInput; k++) {
 
-								if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
+								//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
+								cycleWaitTimeIH[j][k] = cycleArrayIH[j][k] * cycleTime;
 
 								if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
 
 									//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 
-									Isum += arrayIH->ReadCell(j, k);
+									Isum += arrayIH->ReadCell(j, k, cycleWaitTimeIH[j][k]);
+
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
 									sumArrayReadEnergy += arrayIH->wireCapRow * readVoltage * readVoltage; // Selected BLs (1T1R) or Selected WLs (cross-point)
 								}
@@ -335,6 +340,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							for (int k = 0; k < param->nHide; k++) {
 
 								if (j == 1 && k == 1) cout << "arrayHO call Read at " << param->currentEpoch << " Epoch" << '\n';
+
 
 								if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1  
 
