@@ -149,7 +149,7 @@ double Array::ReadCell(int x, int y, char* mode) {
 				cellCurrent = readVoltage / ((1 / conductanceAfter) + totalWireResistance);
 				*/
 
-				cellCurrent = readVoltage / (1/ (static_cast<eNVM*>(cell[x][y])->conductance) + totalWireResistance);
+				cellCurrent = readVoltage / (1/ (static_cast<eNVM*>(cell[x][y])->conductance)*3 + totalWireResistance);
 				//cellCurrent = readVoltage / (1 / (static_cast<eNVM*>(cell[x][y])->conductance * (pow((timeZero / static_cast<eNVM*>(cell[x][y])->waitTime), 0.031))) + totalWireResistance);
 			}
 		}
