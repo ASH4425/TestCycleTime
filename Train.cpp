@@ -48,6 +48,7 @@
 #include "NeuroSim.h"
 #include <iostream>
 
+
 using namespace std;
 
 extern Param* param;
@@ -120,6 +121,16 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 	for (int t = 0; t < epochs; t++) {
 		for (int batchSize = 0; batchSize < numTrain; batchSize++) {
+
+			int cycleArrayIH[param->nHide][param->nInput];
+			int cycleArrayHO[param->nOutput][param->nHide];
+
+			//cycleArray Initialization
+			if (param->currentEpoch == 1 && batchSize == 0) {
+				int cycleArrayIH[param->nHide][param->nInput] = { 0, };
+				int cycleArrayHO[param->nOutput][param->nHide] = { 0, };
+			}
+
 
 			int i = rand() % param->numMnistTrainImages;  // Randomize sample
 			//int i = 1;       // use this value for debug
@@ -561,19 +572,19 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								/*latestWriteTime estimation*/
 
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount before : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount << " at Epoch " << param->currentEpoch << '\n';
+								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount before : " << cycleArrayIH[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has deltaWeight1[jj][k] : " << deltaWeight1[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 
 								if (deltaWeight1[jj][k] != 0.0) {
 									//cout << "if" << endl;
-									static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount = 1;
+									cycleArrayIH[jj][k] = 1;
 								}
 								else {
 									//cout << "else" << endl;
-									static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount++;
+									cycleArrayIH[jj][k]++;
 								}
 
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount after: " << static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount << " at Epoch " << param->currentEpoch << '\n';
+								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount after: " << cycleArrayIH[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
@@ -897,20 +908,21 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount before : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount << " at Epoch " << param->currentEpoch << '\n';
+								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount before : " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has deltaWeight2[jj][k] : " << deltaWeight2[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 
 								/*latestWriteTime estimation*/
 								if (deltaWeight2[jj][k] != 0.0) {
 									//cout << "if" << endl;
-									static_cast<eNVM*>(arrayHO->cell[jj][k])->cycleCount = 1;
+									cycleArrayHO[jj][k] = 1;
 								}
 								else {
 									//cout << "else" << endl;
-									static_cast<eNVM*>(arrayHO->cell[jj][k])->cycleCount++;
+									cycleArrayHO[jj][k]++;
 								}
 
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount after: " << static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount << " at Epoch " << param->currentEpoch << '\n';
+								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount after: " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
+								if (jj == 1 && k == 1) cout << '\n';
 
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;

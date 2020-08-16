@@ -135,7 +135,6 @@ int main() {
 		param->currentEpoch = i;
         cout << "Training Epoch : " << i << endl;
 
-
 		Train(param->numTrainImagesPerEpoch, param->interNumEpochs,param->optimization_type);
 		if (!param->useHardwareInTraining && param->useHardwareInTestingFF) { WeightToConductance(); }
 		Validate();
