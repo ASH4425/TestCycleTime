@@ -46,7 +46,7 @@
 #include "Array.h"
 #include "Mapping.h"
 #include "NeuroSim.h"
-#include <iostream>
+#include <string.h>
 
 
 using namespace std;
@@ -127,8 +127,12 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 			//cycleArray Initialization
 			if (param->currentEpoch == 1 && batchSize == 0) {
-				int cycleArrayIH[param->nHide][param->nInput] = { 0 };
-				int cycleArrayHO[param->nOutput][param->nHide] = { 0 };
+				for (int p = 0; p < param->nHide; p++) {
+					memset(cycleArrayIH[p], 0, sizeof(int) * param->nInput);
+				}
+				for (int q = 0; q < param->nOutput; q++) {
+					memset(cycleArrayHO[q], 0, sizeof(int) * param->nHide);
+				}
 			}
 
 
