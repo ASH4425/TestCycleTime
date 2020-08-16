@@ -186,6 +186,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								cycleWaitTimeIH[j][k] = (cycleArrayIH[j][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime = cycleWaitTimeIH[j][k];
 
+								double timeRatio = (1e-06) / static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime;
+								static_cast<eNVM*>(arrayIH->cell[j][k])->conductance *= pow(timeRatio, 0.031);
+
 								//static_cast<eNVM*>(arrayIH->cell[j][k])->conductance *= pow((1e-06/(cycleWaitTimeIH[j][k])), 0.031);
 
 									if (j == 1 && k == 1) cout << "cycleWaitTimeIH[j][k] : " << cycleWaitTimeIH[j][k] << '\n';
