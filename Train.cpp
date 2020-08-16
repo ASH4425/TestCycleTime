@@ -184,14 +184,16 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 								cycleWaitTimeIH[j][k] = (cycleArrayIH[j][k] + 1) * cycleTime;
+								static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime = cycleWaitTimeIH[j][k];
+
+									if (j == 1 && k == 1) cout << "cycleWaitTimeIH[j][k] : " << cycleWaitTimeIH[j][k] << '\n';
+									if (j == 1 && k == 1) cout << "arrayIH->waitTime : " << static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime << '\n';
 
 								if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
 
 									//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 
-									static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime = cycleWaitTimeIH[j][k];
-									if (j == 1 && k == 1) cout << "arrayIH->waitTime : " << static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime << '\n';
-									if (j == 1 && k == 1) cout << "cycleWaitTimeIH[j][k] : " << cycleWaitTimeIH[j][k] << '\n';
+									
 									
 									Isum += arrayIH->ReadCell(j, k);
 
@@ -345,14 +347,16 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								//if (j == 1 && k == 1) cout << "arrayHO call Read at " << param->currentEpoch << " Epoch" << '\n';
 								cycleWaitTimeHO[j][k] = (cycleArrayHO[j][k] + 1) * cycleTime;
+								static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime = cycleWaitTimeHO[j][k];
+
+									if (j == 1 && k == 1) cout << "cycleWaitTimeHO[j][k] : " << cycleWaitTimeHO[j][k] << '\n';
+									if (j == 1 && k == 1) cout << "arrayHO->waitTime : " << static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime << '\n';
+									
+
 
 								if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1  
-
-									//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
-
-									static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime = cycleWaitTimeHO[j][k];
-									if (j == 1 && k == 1) cout << "arrayHO->waitTime : " << static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime << '\n';
-									if (j == 1 && k == 1) cout << "cycleWaitTimeHO[j][k] : " << cycleWaitTimeHO[j][k] << '\n';
+								
+								//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 
 									Isum += arrayHO->ReadCell(j, k);
 									a1Sum += arrayHO->GetMediumCellReadCurrent(j, k);
