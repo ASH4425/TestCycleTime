@@ -148,13 +148,13 @@ double Array::ReadCell(int x, int y, char* mode) {
 				//if (x == 1 && y == 1) cout << conductanceLocal << endl;
 				//if(x==1 && y == 1) cout << static_cast<eNVM*>(cell[x][y])->conductance << endl;
 
-				
+				/*
 				double timeRatio = timeZero / static_cast<eNVM*>(cell[x][y])->waitTime;
 				double conductanceAfter = static_cast<eNVM*>(cell[x][y])->conductance * pow(timeRatio, 0.031);
 				cellCurrent = readVoltage / ((1 / conductanceAfter) + totalWireResistance);
-				
+				*/
 
-				//cellCurrent = readVoltage / (1/ (static_cast<eNVM*>(cell[x][y])->conductance) + totalWireResistance);
+				cellCurrent = readVoltage / (1/ (static_cast<eNVM*>(cell[x][y])->conductance) + totalWireResistance);
 				//cellCurrent = readVoltage / (1 / (static_cast<eNVM*>(cell[x][y])->conductance * (pow((timeZero / static_cast<eNVM*>(cell[x][y])->waitTime), 0.031))) + totalWireResistance);
 			}
 		}
