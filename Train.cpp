@@ -558,6 +558,23 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
+
+								/*latestWriteTime estimation*/
+
+								if (jj == 51 && k == 51) cout << jj << "," << k << "arrayIH cell has cycleCount before : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount << " at Epoch " << param->currentEpoch << '\n';
+
+
+								if (deltaWeight1[jj][k] != 0.0) {
+									//cout << "if" << endl;
+									static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount = 1;
+								}
+								else {
+									//cout << "else" << endl;
+									static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount++;
+								}
+
+								if (jj == 51 && k == 51) cout << jj << "," << k << "arrayIH cell has cycleCount after: " << static_cast<eNVM*>(arrayIH->cell[jj][k])->cycleCount << " at Epoch " << param->currentEpoch << '\n';
+
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
 								if (fabs(static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse) > maxPulseNum)
@@ -879,6 +896,18 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								if (jj == 51 && k == 51) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch" << '\n';
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
+
+								/*latestWriteTime estimation*/
+								if (deltaWeight2[jj][k] != 0.0) {
+									//cout << "if" << endl;
+									static_cast<eNVM*>(arrayHO->cell[jj][k])->cycleCount = 1;
+								}
+								else {
+									//cout << "else" << endl;
+									static_cast<eNVM*>(arrayHO->cell[jj][k])->cycleCount++;
+								}
+
+
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;
 								if (fabs(static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse) > maxPulseNum)
