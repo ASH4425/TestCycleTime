@@ -131,10 +131,10 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			//cycleArray Initialization
 			if (param->currentEpoch == 1 && batchSize == 0) {
 				for (int p = 0; p < param->nHide; p++) {
-					memset(cycleArrayIH[p], 0, sizeof(int) * param->nInput);
+					memset(cycleArrayIH[p], 1, sizeof(int) * param->nInput);
 				}
 				for (int q = 0; q < param->nOutput; q++) {
-					memset(cycleArrayHO[q], 0, sizeof(int) * param->nHide);
+					memset(cycleArrayHO[q], 1, sizeof(int) * param->nHide);
 				}
 			}
 
