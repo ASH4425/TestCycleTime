@@ -131,10 +131,10 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			//cycleArray Initialization
 			if (param->currentEpoch == 1 && batchSize == 0) {
 				for (int p = 0; p < param->nHide; p++) {
-					memset(cycleArrayIH[p], 1, sizeof(int) * param->nInput);
+					memset(cycleArrayIH[p], 0, sizeof(int) * param->nInput);
 				}
 				for (int q = 0; q < param->nOutput; q++) {
-					memset(cycleArrayHO[q], 1, sizeof(int) * param->nHide);
+					memset(cycleArrayHO[q], 0, sizeof(int) * param->nHide);
 				}
 			}
 
@@ -183,7 +183,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							for (int k = 0; k < param->nInput; k++) {
 
 								//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
-								cycleWaitTimeIH[j][k] = cycleArrayIH[j][k] * cycleTime;
+								cycleWaitTimeIH[j][k] = (cycleArrayIH[j][k] + 1) * cycleTime;
 
 								if ((dInput[i][k] >> n) & 1) {    // if the nth bit of dInput[i][k] is 1
 
@@ -344,7 +344,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							for (int k = 0; k < param->nHide; k++) {
 
 								//if (j == 1 && k == 1) cout << "arrayHO call Read at " << param->currentEpoch << " Epoch" << '\n';
-								cycleWaitTimeHO[j][k] = cycleArrayHO[j][k] * cycleTime;
+								cycleWaitTimeHO[j][k] = (cycleArrayHO[j][k] + 1) * cycleTime;
 
 								if ((da1[k] >> n) & 1) {    // if the nth bit of da1[k] is 1  
 
@@ -595,7 +595,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if (deltaWeight1[jj][k] != 0.0) {
 									//cout << "if" << endl;
-									cycleArrayIH[jj][k] = 1;
+									cycleArrayIH[jj][k] = 0;
 								}
 								else {
 									//cout << "else" << endl;
@@ -932,7 +932,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								/*latestWriteTime estimation*/
 								if (deltaWeight2[jj][k] != 0.0) {
 									//cout << "if" << endl;
-									cycleArrayHO[jj][k] = 1;
+									cycleArrayHO[jj][k] = 0;
 								}
 								else {
 									//cout << "else" << endl;
