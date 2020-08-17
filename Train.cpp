@@ -184,10 +184,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							for (int k = 0; k < param->nInput; k++) {
 
 								//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
-								cycleWaitTimeIH[j][k] = (cycleArrayIH[j][k] + 1) * cycleTime;
-								static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime = cycleWaitTimeIH[j][k];
+								
 
-								double timeRatio = (1e-06) / static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime;
+								//double timeRatio = (1e-06) / static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime;
 								//static_cast<eNVM*>(arrayIH->cell[j][k])->conductance *= pow(timeRatio, 0.031);
 
 								//static_cast<eNVM*>(arrayIH->cell[j][k])->conductance *= pow((1e-06/(cycleWaitTimeIH[j][k])), 0.031);
@@ -352,9 +351,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							for (int k = 0; k < param->nHide; k++) {
 
 								//if (j == 1 && k == 1) cout << "arrayHO call Read at " << param->currentEpoch << " Epoch" << '\n';
-								cycleWaitTimeHO[j][k] = (cycleArrayHO[j][k] + 1) * cycleTime;
-								static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime = cycleWaitTimeHO[j][k];
-
+								
 									if (j == 1 && k == 1) cout << "cycleWaitTimeHO[j][k] : " << cycleWaitTimeHO[j][k] << '\n';
 									if (j == 1 && k == 1) cout << "arrayHO->waitTime : " << static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime << '\n';
 									
@@ -596,7 +593,6 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								if (jj == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch" << '\n';
 
 
-								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 
 								/*latestWriteTime estimation*/
 
@@ -614,6 +610,10 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount after: " << cycleArrayIH[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 
+								cycleWaitTimeIH[j][k] = (cycleArrayIH[j][k] + 1) * cycleTime;
+								static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime = cycleWaitTimeIH[j][k];
+
+								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
 								if (fabs(static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse) > maxPulseNum)
@@ -934,7 +934,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if (jj == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch" << '\n';
 
-								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
+								
 
 								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount before : " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has deltaWeight2[jj][k] : " << deltaWeight2[jj][k] << " at Epoch " << param->currentEpoch << '\n';
@@ -951,6 +951,11 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount after: " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 								if (jj == 1 && k == 1) cout << '\n';
+
+								cycleWaitTimeHO[j][k] = (cycleArrayHO[j][k] + 1) * cycleTime;
+								static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime = cycleWaitTimeHO[j][k];
+
+								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;

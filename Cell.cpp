@@ -42,6 +42,7 @@
 #include "formula.h"
 #include "Array.h"
 #include "Cell.h"
+#include <cmath>
 
 
 /* General eNVM */
@@ -424,6 +425,10 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	else if (conductanceNew < minConductance) {
 		conductanceNew = minConductance;
 	}
+
+
+	/*Conductance Drift*/
+	conductanceNew *= pow((1e-06 / waitTIme), 0.031)
 
 	/* Write latency calculation */
 	if (!nonIdenticalPulse) {	// Identical write pulse scheme
