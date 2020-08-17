@@ -526,7 +526,7 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	*/
 }
 
-void RealDevice::DriftWrite(double waitTimeParameter) {
+void RealDevice::DriftWrite(double weight, double waitTimeParameter) {
 	/*Conductance Drift*/
 	double driftCoeff;
 	double driftCoeffDepend = 0.2;
