@@ -297,7 +297,8 @@ RealDevice::RealDevice(int x, int y) {
 	resistanceAccess = 15e3;	// The resistance of transistor (Ohm) in Pseudo-crossbar array when turned ON
 	nonlinearIV = false;	// Consider I-V nonlinearity or not (Currently for cross-point array only)
 	NL = 10;    // I-V nonlinearity in write scheme (the current ratio between Vw and Vw/2), assuming for the LTP side
-
+	/*Conductance Drift*/
+	waitTime = 1.0; // dynamic variable
 	
 	if (nonlinearIV) {  // Currently for cross-point array only
 		double Vr_exp = readVoltage;  // XXX: Modify this value to Vr in the reported measurement data (can be different than readVoltage)
@@ -420,10 +421,10 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	}
 	
 	/*Conductance Drift*/
-	/*
-	double waitTimeWrite = waitTime;
-	conductanceNew *= pow((1e-06 / waitTimeWrite), 0.031);
-	*/
+	
+	//waitTimeWrite = waitTime;
+	conductanceNew *= pow((1e-06 / waitTime), 0.031);
+	
 
 	if (conductanceNew > maxConductance) {
 		conductanceNew = maxConductance;
