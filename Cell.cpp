@@ -382,7 +382,7 @@ double RealDevice::Read(double voltage) {	// Return read current (A)
 }
 
 void RealDevice::Write(double deltaWeightNormalized, double weight, double minWeight, double maxWeight) {
-	long conductanceNew = conductance;	// =conductance if no update
+	double conductanceNew = conductance;	// =conductance if no update
 	if (deltaWeightNormalized > 0) {	// LTP
 		deltaWeightNormalized = deltaWeightNormalized / (maxWeight - minWeight);
 		deltaWeightNormalized = truncate(deltaWeightNormalized, maxNumLevelLTP);
