@@ -476,7 +476,7 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	conductancePrev = conductance;
 	conductance = conductanceNew;
 
-			if (1e-03 < weight && weight < 1e-2) cout << conductance << '\n';
+			if (0.5 < weight && weight < 0.55) cout << conductance << '\n';
 
 	/*Conductance Drift*/
 	double driftCoeff;
@@ -501,7 +501,7 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	conductance *= pow((1e-03 / waitTime), driftCoeff);
 
 
-	if (1e-03 < weight && weight < 1e-2) {
+	if (0.5 < weight && weight < 0.55) {
 		cout << waitTime << '\n';
 		cout << conductance << '\n';
 		cout << '\n';
