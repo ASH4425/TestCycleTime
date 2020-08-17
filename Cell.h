@@ -90,7 +90,6 @@ public:
 	bool conductanceRangeVar;	// Consider variation of conductance range or not
 	double maxConductanceVar;	// Sigma of maxConductance variation (S)
 	double minConductanceVar;	// Sigma of minConductance variation (S)
-
 	//For cycleTime
 	int cycleCount; //dynamic variable
 	double cycleTime;
