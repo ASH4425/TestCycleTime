@@ -615,7 +615,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								//static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime = cycleWaitTimeIH[jj][k];
 					
 								if (jj == 1 && k == 1) {
-									//cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
+									cout << cycleWaitTimeIH[jj][k] << '\n';
 									string filenameA = "waitTimeTransferTrain9";
 									std::ofstream readA;
 									readA.open(filenameA + ".csv", std::ios_base::app);
@@ -970,7 +970,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 							
 
 								if (jj == 1 && k == 1) {
-									//cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
+									cout << cycleWaitTimeHO[jj][k] << '\n';
 									string filenameA = "waitTimeTransferTrain9";
 									std::ofstream readA;
 									readA.open(filenameA + ".csv", std::ios_base::app);
