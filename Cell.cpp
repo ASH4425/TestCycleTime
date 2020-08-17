@@ -492,7 +492,7 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
 	if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
-	conductance *= pow((1 / r), driftCoeff);
+	conductance *= pow((1e-06 / waitTime), driftCoeff);
 
 	
 	if (conductance > maxConductance) {
