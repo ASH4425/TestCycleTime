@@ -616,7 +616,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if (5.0e-12 < weight1[jj][k] && weight1[jj][k] < 5.5e-12) {
 									cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
-									string filenameA = "waitTimeTransferTrain2";
+									string filenameA = "waitTimeTransferTrain3";
 									std::ofstream readA;
 									readA.open(filenameA + ".csv", std::ios_base::app);
 									readA << '\n';
