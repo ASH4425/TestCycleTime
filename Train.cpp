@@ -590,14 +590,14 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
 
-								if (jj == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch " << batchSize << "batch" << '\n';
+								if (jj == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch " << batchSize << " batch" << '\n';
 
 
 
 								/*latestWriteTime estimation*/
 
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount before : " << cycleArrayIH[jj][k] << " at Epoch " << param->currentEpoch << '\n';
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has deltaWeight1[jj][k] : " << deltaWeight1[jj][k] << " at Epoch " << param->currentEpoch << '\n';
+								//if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount before : " << cycleArrayIH[jj][k] << " at Epoch " << param->currentEpoch << '\n';
+								//if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has deltaWeight1[jj][k] : " << deltaWeight1[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 
 								if (deltaWeight1[jj][k] != 0.0) {
 									//cout << "if" << endl;
@@ -608,12 +608,14 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									cycleArrayIH[jj][k]++;
 								}
 
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount after: " << cycleArrayIH[jj][k] << " at Epoch " << param->currentEpoch << '\n';
+								//if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount after: " << cycleArrayIH[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 
 								cycleWaitTimeIH[jj][k] = (cycleArrayIH[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime = cycleWaitTimeIH[jj][k];
+								if (0 < weight1[jj][k] < 0.1) cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
 
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
+
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
 								if (fabs(static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse) > maxPulseNum)
@@ -932,12 +934,12 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[jj][k])) { // Analog eNVM
 
-								if (jj == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch " << batchSize << "batch" << '\n';
+								if (jj == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch " << batchSize << " batch" << '\n';
 
 								
 
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount before : " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has deltaWeight2[jj][k] : " << deltaWeight2[jj][k] << " at Epoch " << param->currentEpoch << '\n';
+								//if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount before : " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
+								//if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has deltaWeight2[jj][k] : " << deltaWeight2[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 
 								/*latestWriteTime estimation*/
 								if (deltaWeight2[jj][k] != 0.0) {
@@ -949,11 +951,12 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									cycleArrayHO[jj][k]++;
 								}
 
-								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount after: " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
+								//if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount after: " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 								if (jj == 1 && k == 1) cout << '\n';
 
 								cycleWaitTimeHO[jj][k] = (cycleArrayHO[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime = cycleWaitTimeHO[jj][k];
+								if (0 < weight2[jj][k] < 0.1) cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 
@@ -1157,6 +1160,39 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 					}
 				}
 			}
+
+			/*
+			if (finalbatch && (param->currentEpoch == param->totalNumEpochs)) {
+
+				for (int m = 0; m < param->nHide; m++) {
+					for (int i = 0; i < 4; i++) {
+						for (int n = 100 * i; n < 100 * (i + 1); n++) {
+							string filenameA = "weightIHtest";
+							std::ofstream readA;
+							readA.open(filenameA + ".csv", std::ios_base::app);
+							readA << endl;
+							readA << m << ", " << n; //write Cell index
+							readA << ", " << weight1[m][n];
+							readA.close();
+						}
+					}
+				}
+				for (int m = 0; m < param->nOutput; m++) {
+					for (int i = 0; i < 4; i++) {
+						for (int n = 25 * i; n < 25 * (i + 1); n++) {
+								string filenameB = "weightHOtest";
+								std::ofstream readB;
+								readB.open(filenameB + ".csv", std::ios::out | std::ios_base::app);
+								readB << endl;
+								readB << m << ", " << n; //write Cell index
+								readB << ", " << weight2[m][n];
+								readB.close();
+
+						}
+					}
+				}
+			}// end of weight tracking code
+			*/
 		}
 	}
 }

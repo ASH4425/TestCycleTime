@@ -44,6 +44,7 @@
 #include "Cell.h"
 #include <cmath>
 
+using namespace std;
 
 /* General eNVM */
 void AnalogNVM::WriteEnergyCalculation(double wireCapCol) {
@@ -473,6 +474,9 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	conductancePrev = conductance;
 	conductance = conductanceNew;
 
+			if (0 < weight < 0.1) cout << conductance << '\n';
+
+	/*Conductance Drift*/
 	double driftCoeff;
 	double driftCoeffDepend = 0.2;
 	double maxdriftCoeff = 0.1;
@@ -494,7 +498,11 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 
 	conductance *= pow((1e-03 / waitTime), driftCoeff);
 
+
+			if (0 < weight < 0.1) cout << waitTime << '\n';
+			if (0 < weight < 0.1) cout << conductance << '\n';
 	
+
 	if (conductance > maxConductance) {
 		conductance = maxConductance;
 	}
