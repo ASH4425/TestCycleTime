@@ -359,6 +359,8 @@ RealDevice::RealDevice(int x, int y) {
 
 	heightInFeatureSize = cmosAccess ? 4 : 2; // Cell height = 4F (Pseudo-crossbar) or 2F (cross-point)
 	widthInFeatureSize = cmosAccess ? (FeFET ? 6 : 4) : 2; //// Cell width = 6F (FeFET) or 4F (Pseudo-crossbar) or 2F (cross-point)
+
+	double waitTimeFake = 0.5;
 }
 
 double RealDevice::Read(double voltage) {	// Return read current (A)
@@ -428,7 +430,8 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 
 
 	/*Conductance Drift*/
-	conductanceNew *= pow((1e-06 / waitTIme), 0.031);
+
+	conductanceNew *= pow((1e-06 / waitTimeFake), 0.031);
 
 	/* Write latency calculation */
 	if (!nonIdenticalPulse) {	// Identical write pulse scheme
