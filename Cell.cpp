@@ -472,7 +472,7 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 
 	conductancePrev = conductance;
 	conductance = conductanceNew;
-	conductance *= pow(2, 0.5);
+	conductance *= pow(1e-04, 0.1);
 
 }
 
