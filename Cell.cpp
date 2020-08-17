@@ -494,16 +494,14 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 
 	conductance *= pow((1 / r), driftCoeff);
 
-	/**
-	conductance *= pow(1e-04, 0.51);
-
+	
 	if (conductance > maxConductance) {
 		conductance = maxConductance;
 	}
 	else if (conductance < minConductance) {
 		conductance = minConductance;
 	}
-	*/
+	
 }
 
 /* Measured device */
