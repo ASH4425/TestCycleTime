@@ -616,7 +616,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if (0.2 < weight1[jj][k] && weight1[jj][k] < 0.8) {
 									cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
-									string filenameA = "waitTimeTransferTrain4";
+									string filenameA = "waitTimeTransferTrain5";
 									std::ofstream readA;
 									readA.open(filenameA + ".csv", std::ios_base::app);
 									//readA << jj << ", " << k; //write Cell index
@@ -969,7 +969,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if (0.2 < weight2[jj][k] && weight2[jj][k] < 0.8) {
 									cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
-									string filenameA = "waitTimeTransferTrain4";
+									string filenameA = "waitTimeTransferTrain5";
 									std::ofstream readA;
 									readA.open(filenameA + ".csv", std::ios_base::app);
 									//readA << jj << ", " << k; //write Cell index
