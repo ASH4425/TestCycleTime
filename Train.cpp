@@ -612,7 +612,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								cycleWaitTimeIH[jj][k] = (cycleArrayIH[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime = cycleWaitTimeIH[jj][k];
-								if (0 < weight1[jj][k] < 0.00001) cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
+								if (0 < weight1[jj][k] < 0.00000001) cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
 
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 
@@ -956,7 +956,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								cycleWaitTimeHO[jj][k] = (cycleArrayHO[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime = cycleWaitTimeHO[jj][k];
-								if (0 < weight2[jj][k] < 0.00001) cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
+								if (0 < weight2[jj][k] < 0.00000001) cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 
