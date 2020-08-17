@@ -613,7 +613,8 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								cycleWaitTimeIH[jj][k] = (cycleArrayIH[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime = cycleWaitTimeIH[jj][k];
-								if (5.0e-12 < weight1[jj][k] < 5.5e-12) {
+
+								if (5.0e-12 < weight1[jj][k] && weight1[jj][k] < 5.5e-12) {
 									cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
 									string filenameA = "waitTimeTransferTrain2";
 									std::ofstream readA;
@@ -966,7 +967,8 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								cycleWaitTimeHO[jj][k] = (cycleArrayHO[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime = cycleWaitTimeHO[jj][k];
-								if (5.0e-12 < weight2[jj][k] < 5.5e-12) {
+
+								if (5.0e-12 < weight2[jj][k] && weight2[jj][k] < 5.5e-12) {
 									cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
 									string filenameA = "waitTimeTransferTrain2";
 									std::ofstream readA;
