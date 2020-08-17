@@ -285,7 +285,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 			double minConductance = static_cast<eNVM*>(cell[x][y])->minConductance;
             // ? should add "+minConductance"?
 			conductance = (weight-minWeight)/(maxWeight-minWeight) * (maxConductance - minConductance);
-			conductance = conductance * 1.5;
+
 			if (conductance > maxConductance) 
             {
 				conductance = maxConductance;
