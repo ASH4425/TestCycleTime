@@ -1184,38 +1184,38 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 				}
 			}
 
-			/*
-			if (finalbatch && (param->currentEpoch == param->totalNumEpochs)) {
+			
+			if (batchSize == numTrain - 1 && (param->currentEpoch == param->totalNumEpochs)) {
 
 				for (int m = 0; m < param->nHide; m++) {
 					for (int i = 0; i < 4; i++) {
 						for (int n = 100 * i; n < 100 * (i + 1); n++) {
-							string filenameA = "weightIHtest";
-							std::ofstream readA;
-							readA.open(filenameA + ".csv", std::ios_base::app);
-							readA << endl;
-							readA << m << ", " << n; //write Cell index
-							readA << ", " << weight1[m][n];
-							readA.close();
+							string filenameC = "weightIHwithDrift";
+							std::ofstream readC;
+							readC.open(filenameC + ".csv", std::ios_base::app);
+							readC << endl;
+							readC << m << ", " << n; //write Cell index
+							readC << ", " << weight1[m][n];
+							readC.close();
 						}
 					}
 				}
 				for (int m = 0; m < param->nOutput; m++) {
 					for (int i = 0; i < 4; i++) {
 						for (int n = 25 * i; n < 25 * (i + 1); n++) {
-								string filenameB = "weightHOtest";
-								std::ofstream readB;
-								readB.open(filenameB + ".csv", std::ios::out | std::ios_base::app);
-								readB << endl;
-								readB << m << ", " << n; //write Cell index
-								readB << ", " << weight2[m][n];
-								readB.close();
+								string filenameD = "weightHOwithDrift";
+								std::ofstream readD;
+								readD.open(filenameD + ".csv", std::ios::out | std::ios_base::app);
+								readD << endl;
+								readD << m << ", " << n; //write Cell index
+								readD << ", " << weight2[m][n];
+								readD.close();
 
 						}
 					}
 				}
 			}// end of weight tracking code
-			*/
+			
 		}
 	}
 }
