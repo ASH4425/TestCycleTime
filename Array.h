@@ -146,7 +146,7 @@ public:
 	double GetMediumCellReadCurrent(int x, int y);
 	double ConductanceToWeight(int x, int y, double maxWeight, double minWeight,char* mode=NULL);
 	/*For Conductance Drift Effect*/
-	void DriftWriteCell(int x, int y, double waitTimeParameterArray);
+	void DriftWriteCell(int x, int y, double weight, double waitTimeParameterArray);
 };
 
 #endif
