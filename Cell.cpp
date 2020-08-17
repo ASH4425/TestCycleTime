@@ -421,7 +421,7 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	/*Conductance Drift*/
 	
 	//waitTimeWrite = waitTime;
-	conductanceNew *= 1.5;
+	//conductanceNew *= 1.5;
 	
 
 	if (conductanceNew > maxConductance) {
