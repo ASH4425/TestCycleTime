@@ -590,7 +590,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
 
-								if (jj == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch" << '\n';
+								if (jj == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch " << batchSize << "batch" << '\n';
 
 
 
@@ -610,8 +610,8 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayIH cell has cycleCount after: " << cycleArrayIH[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 
-								cycleWaitTimeIH[j][k] = (cycleArrayIH[j][k] + 1) * cycleTime;
-								static_cast<eNVM*>(arrayIH->cell[j][k])->waitTime = cycleWaitTimeIH[j][k];
+								cycleWaitTimeIH[jj][k] = (cycleArrayIH[jj][k] + 1) * cycleTime;
+								static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime = cycleWaitTimeIH[jj][k];
 
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
@@ -932,7 +932,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[jj][k])) { // Analog eNVM
 
-								if (jj == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch" << '\n';
+								if (jj == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch " << batchSize << "batch" << '\n';
 
 								
 
@@ -952,8 +952,8 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount after: " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
 								if (jj == 1 && k == 1) cout << '\n';
 
-								cycleWaitTimeHO[j][k] = (cycleArrayHO[j][k] + 1) * cycleTime;
-								static_cast<eNVM*>(arrayHO->cell[j][k])->waitTime = cycleWaitTimeHO[j][k];
+								cycleWaitTimeHO[jj][k] = (cycleArrayHO[jj][k] + 1) * cycleTime;
+								static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime = cycleWaitTimeHO[jj][k];
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 
