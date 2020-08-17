@@ -615,12 +615,13 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime = cycleWaitTimeIH[jj][k];
 								if (0.000000009 < weight1[jj][k] < 0.00000001) {
 									cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
-									string filenameA = "waitTimeTransferTrain";
+									string filenameA = "waitTimeTransferTrain1";
 									std::ofstream readA;
 									readA.open(filenameA + ".csv", std::ios_base::app);
-									readA << endl;
-									readA << jj << ", " << k; //write Cell index
+									readA << '\n';
+									//readA << jj << ", " << k; //write Cell index
 									readA << ", " << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime;
+									readA << '\n';
 									readA.close();
 								}
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
@@ -970,9 +971,10 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									string filenameA = "waitTimeTransferTrain";
 									std::ofstream readA;
 									readA.open(filenameA + ".csv", std::ios_base::app);
-									readA << endl;
-									readA << jj << ", " << k; //write Cell index
+									readA << '\n';
+									//readA << jj << ", " << k; //write Cell index
 									readA << ", " << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime;
+									readA << '\n';
 									readA.close();
 								}
 

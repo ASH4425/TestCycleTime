@@ -507,11 +507,12 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 		cout << '\n';
 
 	
-		string filenameB = "waitTimeTransferCell";
+		string filenameB = "waitTimeTransferCell1";
 		std::ofstream readB;
 		readB.open(filenameB + ".csv", std::ios_base::app);
-		readB << endl;
+		readB << '\n';
 		readB << waitTime;
+		readB << '\n';
 		readB.close();
 		
 	}
