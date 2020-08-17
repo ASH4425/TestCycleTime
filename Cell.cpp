@@ -552,7 +552,7 @@ void RealDevice::DriftWrite(double weight, double waitTimeParameter) {
 	conductance *= pow((1e-03 / waitTimeParameter), driftCoeff);
 
 
-	if (0.4 < weight && weight < 0.45) {
+	if (0.4 < weight && weight < 0.5) {
 		cout << waitTimeParameter << '\n';
 		//cout << conductance << '\n';
 		cout << '\n';
