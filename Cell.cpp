@@ -558,7 +558,7 @@ void RealDevice::DriftWrite(double weight, double waitTimeParameter) {
 		cout << '\n';
 
 
-		string filenameB = "waitTimeTransferCell6";
+		string filenameB = "waitTimeTransferCell7";
 		std::ofstream readB;
 		readB.open(filenameB + ".csv", std::ios_base::app);
 		readB << waitTimeParameter;
