@@ -553,9 +553,8 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 
 
 	if (x == 1 && y == 1) {
-		cout << waitTimeParameter << '\n';
-		//cout << conductance << '\n';
-		cout << '\n';
+		//cout << waitTimeParameter << '\n';
+		//cout << '\n';
 
 
 		string filenameB = "waitTimeTransferCell9";
