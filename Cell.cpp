@@ -305,16 +305,16 @@ RealDevice::RealDevice(int x, int y) {
 		minConductance = NonlinearConductance(minConductance, NL, writeVoltageLTP, Vr_exp, readVoltage);
 	}
 	nonlinearWrite = false;	// Consider weight update nonlinearity or not
-	nonIdenticalPulse = false;	// Use non-identical pulse scheme in weight update or not
+	nonIdenticalPulse = true;	// Use non-identical pulse scheme in weight update or not
 	if (nonIdenticalPulse) {
-		VinitLTP = 2.85;	// Initial write voltage for LTP or weight increase (V)
-		VstepLTP = 0.05;	// Write voltage step for LTP or weight increase (V)
-		VinitLTD = 2.1;		// Initial write voltage for LTD or weight decrease (V)
-		VstepLTD = 0.05; 	// Write voltage step for LTD or weight decrease (V)
-		PWinitLTP = 75e-9;	// Initial write pulse width for LTP or weight increase (s)
-		PWstepLTP = 5e-9;	// Write pulse width for LTP or weight increase (s)
-		PWinitLTD = 75e-9;	// Initial write pulse width for LTD or weight decrease (s)
-		PWstepLTD = 5e-9;	// Write pulse width for LTD or weight decrease (s)
+		VinitLTP = 1.00;	// Initial write voltage for LTP or weight increase (V)
+		VstepLTP = 0.0125;	// Write voltage step for LTP or weight increase (V)
+		VinitLTD = 5.7;		// Initial write voltage for LTD or weight decrease (V)
+		VstepLTD = 0.025; 	// Write voltage step for LTD or weight decrease (V)
+		PWinitLTP = 100e-9;	// Initial write pulse width for LTP or weight increase (s)
+		PWstepLTP = 0;	// Write pulse width for LTP or weight increase (s)
+		PWinitLTD = 100e-9;	// Initial write pulse width for LTD or weight decrease (s)
+		PWstepLTD = 0;	// Write pulse width for LTD or weight decrease (s)
 		writeVoltageSquareSum = 0;	// Sum of V^2 of non-identical pulses (dynamic variable)
 	}
 	readNoise = false;		// Consider read noise or not
