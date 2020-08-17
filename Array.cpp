@@ -274,7 +274,8 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
         if (regular) 
         {	// Regular write
 			static_cast<AnalogNVM*>(cell[x][y])->Write(deltaWeight, weight, minWeight, maxWeight);
-			static_cast<eNVM*>(cell[x][y])->conductance *= 2;
+			//static_cast<eNVM*>(cell[x][y])->conductance *= 2;
+		
 		} 
         else 
         {	// Preparation stage (ideal write)
@@ -284,6 +285,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 			double minConductance = static_cast<eNVM*>(cell[x][y])->minConductance;
             // ? should add "+minConductance"?
 			conductance = (weight-minWeight)/(maxWeight-minWeight) * (maxConductance - minConductance);
+			conductance = conductance * 1.5;
 			if (conductance > maxConductance) 
             {
 				conductance = maxConductance;
