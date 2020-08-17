@@ -552,13 +552,13 @@ void RealDevice::DriftWrite(double weight, double waitTimeParameter) {
 	conductance *= pow((1e-03 / waitTimeParameter), driftCoeff);
 
 
-	if (0.3 < weight && weight < 0.6) {
+	if (0.4 < weight && weight < 0.45) {
 		cout << waitTimeParameter << '\n';
-		cout << conductance << '\n';
+		//cout << conductance << '\n';
 		cout << '\n';
 
 
-		string filenameB = "waitTimeTransferCell7";
+		string filenameB = "waitTimeTransferCell8";
 		std::ofstream readB;
 		readB.open(filenameB + ".csv", std::ios_base::app);
 		readB << waitTimeParameter;
