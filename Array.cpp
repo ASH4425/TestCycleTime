@@ -351,7 +351,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 }
 
 void Array::DriftWriteCell(int x, int y, double weight, double waitTimeParameterArray) {
-	static_cast<AnalogNVM*>(cell[x][y])->DriftWrite(waitTimeParameterArray);
+	static_cast<AnalogNVM*>(cell[x][y])->DriftWrite(weight, waitTimeParameterArray);
 }
 
 double Array::GetMaxCellReadCurrent(int x, int y, char* mode) { 
