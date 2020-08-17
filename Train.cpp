@@ -613,7 +613,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								cycleWaitTimeIH[jj][k] = (cycleArrayIH[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime = cycleWaitTimeIH[jj][k];
-
+					
 								if (0.2 < weight1[jj][k] && weight1[jj][k] < 0.8) {
 									cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
 									string filenameA = "waitTimeTransferTrain5";
@@ -625,6 +625,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									readA.close();
 								}
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
+								arrayIH->DriftWriteCell(cycleWaitTimeIH[jj][k]);
 
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
@@ -966,6 +967,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								cycleWaitTimeHO[jj][k] = (cycleArrayHO[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime = cycleWaitTimeHO[jj][k];
+							
 
 								if (0.2 < weight2[jj][k] && weight2[jj][k] < 0.8) {
 									cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
@@ -979,6 +981,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								}
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
+								arrayHO->DriftWriteCell(cycleWaitTimeHO[jj][k]);
 
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;

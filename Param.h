@@ -84,6 +84,7 @@ public:
 	int processNode;	// Technology node (nm)
 	double clkFreq;		// Clock frequency (Hz)
 
+	/*Check current Epoch*/
 	int currentEpoch;
 
 };

@@ -476,9 +476,10 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	conductancePrev = conductance;
 	conductance = conductanceNew;
 
-			if (0.2 < weight && weight < 0.8) cout << conductance << '\n';
+	//if (0.2 < weight && weight < 0.8) cout << conductance << '\n';
 
 	/*Conductance Drift*/
+	/*
 	double driftCoeff;
 	double driftCoeffDepend = 0.2;
 	double maxdriftCoeff = 0.1;
@@ -522,7 +523,54 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	else if (conductance < minConductance) {
 		conductance = minConductance;
 	}
-	
+	*/
+}
+
+void RealDevice::DriftWrite(double waitTimeParameter) {
+	/*Conductance Drift*/
+	double driftCoeff;
+	double driftCoeffDepend = 0.2;
+	double maxdriftCoeff = 0.1;
+	double mindriftCoeff = 0.0;
+
+
+	double r;
+	r = 1e+04;
+
+	if (conductance > 2e-06) {
+		driftCoeff = 0.0;
+	}
+	else {
+		driftCoeff = driftCoeffDepend * log(0.5e-06 / conductance) + 0.1;
+	}
+
+	if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
+	if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
+
+	conductance *= pow((1e-03 / waitTimeParameter), driftCoeff);
+
+
+	if (0.2 < weight && weight < 0.8) {
+		cout << waitTimeParameter << '\n';
+		cout << conductance << '\n';
+		cout << '\n';
+
+
+		string filenameB = "waitTimeTransferCell5";
+		std::ofstream readB;
+		readB.open(filenameB + ".csv", std::ios_base::app);
+		readB << this->waitTime;
+		readB << '\n';
+		readB.close();
+
+	}
+
+	if (conductance > maxConductance) {
+		conductance = maxConductance;
+	}
+	else if (conductance < minConductance) {
+		conductance = minConductance;
+	}
 }
 
 /* Measured device */
