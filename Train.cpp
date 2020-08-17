@@ -48,6 +48,7 @@
 #include "NeuroSim.h"
 #include <string.h>
 #include <cmath>
+#include <fstream>
 
 
 using namespace std;
