@@ -590,7 +590,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayIH->cell[jj][k])) {	// Analog eNVM
 
-								if (jj == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch " << batchSize << " batch" << '\n';
+								//if (jj == 1 && k == 1) cout << "arrayIH call Write at " << param->currentEpoch << " Epoch " << batchSize << " batch" << '\n';
 
 
 
@@ -934,7 +934,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 							if (AnalogNVM* temp = dynamic_cast<AnalogNVM*>(arrayHO->cell[jj][k])) { // Analog eNVM
 
-								if (jj == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch " << batchSize << " batch" << '\n';
+								//if (jj == 1 && k == 1) cout << "arrayHO call Write at " << param->currentEpoch << " Epoch " << batchSize << " batch" << '\n';
 
 								
 
@@ -952,7 +952,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								}
 
 								//if (jj == 1 && k == 1) cout << jj << "," << k << "arrayHO cell has cycleCount after: " << cycleArrayHO[jj][k] << " at Epoch " << param->currentEpoch << '\n';
-								if (jj == 1 && k == 1) cout << '\n';
+								//if (jj == 1 && k == 1) cout << '\n';
 
 								cycleWaitTimeHO[jj][k] = (cycleArrayHO[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime = cycleWaitTimeHO[jj][k];
