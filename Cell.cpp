@@ -418,11 +418,12 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	if (sigmaCtoC && numPulse != 0) {
 		conductanceNew += (*gaussian_dist3)(gen) * sqrt(abs(numPulse));	// Absolute variation
 	}
-
+	
 	/*Conductance Drift*/
+	/*
 	double waitTimeWrite = waitTime;
-	conductanceNew *= 2; //pow((1e-06 / waitTimeWrite), 0.031);
-
+	conductanceNew *= pow((1e-06 / waitTimeWrite), 0.031);
+	*/
 
 	if (conductanceNew > maxConductance) {
 		conductanceNew = maxConductance;
