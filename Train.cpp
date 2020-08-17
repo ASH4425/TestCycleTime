@@ -612,8 +612,16 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								cycleWaitTimeIH[jj][k] = (cycleArrayIH[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime = cycleWaitTimeIH[jj][k];
-								if (0.000000009 < weight1[jj][k] < 0.00000001) cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
-
+								if (0.000000009 < weight1[jj][k] < 0.00000001) {
+									cout << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime << '\n';
+									string filenameA = "waitTimeTransferTrain";
+									std::ofstream readA;
+									readA.open(filenameA + ".csv", std::ios_base::app);
+									readA << endl;
+									readA << jj << ", " << k; //write Cell index
+									readA << ", " << static_cast<eNVM*>(arrayIH->cell[jj][k])->waitTime;
+									readA.close();
+								}
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
@@ -956,7 +964,16 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 								cycleWaitTimeHO[jj][k] = (cycleArrayHO[jj][k] + 1) * cycleTime;
 								static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime = cycleWaitTimeHO[jj][k];
-								if (0.000000009 < weight2[jj][k] < 0.00000001) cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
+								if (0.000000009 < weight2[jj][k] < 0.00000001) {
+									cout << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime << '\n';
+									string filenameA = "waitTimeTransferTrain";
+									std::ofstream readA;
+									readA.open(filenameA + ".csv", std::ios_base::app);
+									readA << endl;
+									readA << jj << ", " << k; //write Cell index
+									readA << ", " << static_cast<eNVM*>(arrayHO->cell[jj][k])->waitTime;
+									readA.close();
+								}
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
 

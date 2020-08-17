@@ -499,10 +499,20 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	conductance *= pow((1e-03 / waitTime), driftCoeff);
 
 
-			if (0.000000009 < weight < 0.00000001) cout << waitTime << '\n';
-			if (0.000000009 < weight < 0.00000001) cout << conductance << '\n';
-			if (0.000000009 < weight < 0.00000001) cout << '\n';
+	if (0.000000009 < weight < 0.00000001) {
+		cout << waitTime << '\n';
+		cout << conductance << '\n';
+		cout << '\n';
+
 	
+		string filenameB = "waitTimeTransferCell";
+		std::ofstream readB;
+		readB.open(filenameB + ".csv", std::ios_base::app);
+		readB << endl;
+		readB << waitTime;
+		readB.close();
+		
+	}
 
 	if (conductance > maxConductance) {
 		conductance = maxConductance;
