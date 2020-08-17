@@ -419,6 +419,11 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 		conductanceNew += (*gaussian_dist3)(gen) * sqrt(abs(numPulse));	// Absolute variation
 	}
 
+	/*Conductance Drift*/
+	double waitTimeWrite = waitTime;
+	conductanceNew *= pow((1e-06 / waitTimeWrite), 0.031);
+
+
 	if (conductanceNew > maxConductance) {
 		conductanceNew = maxConductance;
 	}
@@ -427,9 +432,6 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 	}
 
 
-	/*Conductance Drift*/
-	double waitTimeWrite = waitTime;
-	//conductanceNew *= pow((1e-06 / waitTimeWrite), 0.031);
 
 	/* Write latency calculation */
 	if (!nonIdenticalPulse) {	// Identical write pulse scheme
