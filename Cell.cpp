@@ -282,7 +282,7 @@ RealDevice::RealDevice(int x, int y) {
 	minConductance = 0.554e-6;	// Minimum cell conductance (S)
 	avgMaxConductance = maxConductance; // Average maximum cell conductance (S)
 	avgMinConductance = minConductance; // Average minimum cell conductance (S)
-	conductance = minConductance;	// Current conductance (S) (dynamic variable)
+	//conductance = minConductance;	// Current conductance (S) (dynamic variable)
 	conductancePrev = conductance;	// Previous conductance (S) (dynamic variable)
 	readVoltage = 0.5;	// On-chip read voltage (Vr) (V)
 	readPulseWidth = 5e-9;	// Read pulse width (s) (will be determined by ADC)
@@ -617,8 +617,8 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 		conductance = maxConductance;
 	}
 	
-	else if (conductance < 0.554e-06) {
-		conductance = 0.554e-06;
+	else if (conductance < minConductance) {
+		conductance = minConductance;
 	}
 	
 
