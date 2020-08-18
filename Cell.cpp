@@ -537,7 +537,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	double r;
 	r = 1e+04;
 
-	if (conductance > 2e-06) {
+	if (conductance > 4e-06) {
 		driftCoeff = 0.0;
 	}
 	else {
