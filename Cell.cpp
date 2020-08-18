@@ -555,7 +555,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	double maxResistance = 2e06;
 	*/
 
-	driftCoeffDepend = (maxdriftCoeff - mindriftCoeff) / (log(maxResistance/minResistance));
+	driftCoeffDepend = (maxdriftCoeff - mindriftCoeff) / (log10(maxResistance/minResistance));
 
 	if (x == 4 && y == 2) {
 		cout << maxdriftCoeff << '\n';
