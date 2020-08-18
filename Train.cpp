@@ -639,6 +639,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								}
 								arrayIH->DriftWriteCell(jj, k, weight1[jj][k], cycleWaitTimeIH[jj][k]);
 								if (jj == 60 && k == 60) {
+									cout << "waitTime : " << cycleWaitTimeIH[jj][k] << '\n';
 									cout << "After Drift, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
 									cout << '\n';
 								}
