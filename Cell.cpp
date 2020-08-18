@@ -547,21 +547,22 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
 	if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
-	
+	/*
 	if (x == 1 && y == 1) {
 		cout << conductance << '\n';
 		cout << waitTimeParameter << '\n';
 	}
+	*/
 
-	conductance *= pow((1e-03 / waitTimeParameter), driftCoeff);
+	conductance *= pow((1e-03 / waitTimeParameter), 0.1);
 
-
+	/*
 	if (x == 1 && y == 1) {
 		cout << driftCoeff << '\n';
 		cout << conductance << '\n';
 		cout << '\n';
 	}
-
+	*/
 
 	if (x == 1 && y == 1) {
 		//cout << conductance << '\n';
