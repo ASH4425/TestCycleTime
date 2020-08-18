@@ -568,6 +568,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	}
 	*/
 
+
 	if (1 / conductance < minResistance) {
 		driftCoeff = mindriftCoeff;
 	}
@@ -581,6 +582,12 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
 	if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
+
+	if (x == 60 && y == 60) {
+		cout << "conductance at DriftWrite() before : " << conductance << '\n';
+		cout << "WaitTime : " << waitTimeParameter << '\n';
+		cout << "driftCoeff : " << driftCoeff << '\n';
+	}
 	/*
 	if (x == 1 && y == 1) {
 		cout << conductance << '\n';
@@ -623,23 +630,11 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	
 
 	if (x == 60 && y == 60) {
-		cout << "maxResistance : " << maxResistance << '\n';
-		cout << "minResistance : " << minResistance << '\n';
-		cout << "maxdriftCoeff : " << maxdriftCoeff << '\n';
-		cout << "mindriftCoeff : " << mindriftCoeff << '\n';
-		cout << "driftCoeffDepend : " << driftCoeffDepend << '\n';
-		cout << '\n';
-		cout << "conductance at DriftWrite() : " << conductance << '\n';
+		cout << "conductance at DriftWrite() after : " << conductance << '\n';
 		cout << "WaitTime : " << waitTimeParameter << '\n';
-		cout << "DriftCoeff : " << driftCoeff << '\n';
-		cout << "maxConductance : " << maxConductance << '\n';
-		cout << "minConductance : " << minConductance << '\n';
 	}
 	
-	if (x == 70 && y == 70) {
-		cout << "Another driftCoeffDepend : " << driftCoeffDepend << '\n';
-	}
-
+	
 }
 
 /* Measured device */
