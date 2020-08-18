@@ -170,23 +170,23 @@ void AnalogNVM::WriteEnergyCalculation(double wireCapCol) {
 /* Ideal device (no weight update nonlinearity) */
 IdealDevice::IdealDevice(int x, int y) {
 	this->x = x; this->y = y;	// Cell location: x (column) and y (row) start from index 0
-	maxConductance = 5e-6;		// Maximum cell conductance (S)
-	minConductance = 100e-9;	    // Minimum cell conductance (S)
+	maxConductance = 4.76e-6;		// Maximum cell conductance (S)
+	minConductance = 0.554e-6;	// Minimum cell conductance (S)
 	avgMaxConductance = maxConductance; // Average maximum cell conductance (S)
 	avgMinConductance = minConductance; // Average minimum cell conductance (S)
 	conductance = minConductance;	// Current conductance (S) (dynamic variable)
 	conductancePrev = conductance;	// Previous conductance (S) (dynamic variable)
 	readVoltage = 0.5;	// On-chip read voltage (Vr) (V)
 	readPulseWidth = 5e-9;	// Read pulse width (s) (will be determined by ADC)
-	writeVoltageLTP = 2;	// Write voltage (V) for LTP or weight increase
-	writeVoltageLTD = 2;	// Write voltage (V) for LTD or weight decrease
-	writePulseWidthLTP = 10e-9;	// Write pulse width (s) for LTP or weight increase
-	writePulseWidthLTD = 10e-9;	// Write pulse width (s) for LTD or weight decrease
+	writeVoltageLTP = 3.2;	// Write voltage (V) for LTP or weight increase
+	writeVoltageLTD = 2.8;	// Write voltage (V) for LTD or weight decrease
+	writePulseWidthLTP = 300e-6;	// Write pulse width (s) for LTP or weight increase
+	writePulseWidthLTD = 300e-6;	// Write pulse width (s) for LTD or weight decrease
 	writeEnergy = 0;	// Dynamic variable for calculation of write energy (J)
-	maxNumLevelLTP = 63;	// Maximum number of conductance states during LTP or weight increase
-	maxNumLevelLTD = 63;	// Maximum number of conductance states during LTD or weight decrease
+	maxNumLevelLTP = 56;	// Maximum number of conductance states during LTP or weight increase
+	maxNumLevelLTD = 64;	// Maximum number of conductance states during LTD or weight decrease
 	numPulse = 0;	// Number of write pulses used in the most recent write operation (dynamic variable)
-	cmosAccess = true;	// True: Pseudo-crossbar (1T1R), false: cross-point
+	cmosAccess = false;	// True: Pseudo-crossbar (1T1R), false: cross-point
 	FeFET = false;		// True: FeFET structure (Pseudo-crossbar only, should be cmosAccess=1)
 	gateCapFeFET = 2.1717e-18;	// Gate capacitance of FeFET (F)
 	resistanceAccess = 15e3;	// The resistance of transistor (Ohm) in Pseudo-crossbar array when turned ON
