@@ -616,11 +616,11 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	if (conductance > maxConductance) {
 		conductance = maxConductance;
 	}
-	/*
+	
 	else if (conductance < minConductance) {
 		conductance = minConductance;
 	}
-	*/
+	
 
 	if (x == 51 && y == 51) {
 		cout << "WaitTime : " << waitTimeParameter << '\n';
