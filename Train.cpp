@@ -200,7 +200,11 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 
 									
-									
+
+									if (j == 51 && k == 51) {
+										cout << "Read, conductance : " << static_cast<eNVM*>(arrayIH->cell[j][k])->conductance << '\n';
+									}
+
 									Isum += arrayIH->ReadCell(j, k);
 
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
@@ -626,10 +630,8 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									readA.close();
 								}
 								*/
-
 								if (jj == 51 && k == 51) {
-									cout << "Before Write, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
-									cout << "deltaWeight : " << deltaWeight1[jj][k] << '\n';
+									cout << "delataWeight : " << deltaWeight1[jj][k] << '\n';
 								}
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
 								if (jj == 51 && k == 51) {
