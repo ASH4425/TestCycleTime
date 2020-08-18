@@ -310,7 +310,7 @@ RealDevice::RealDevice(int x, int y) {
 	maxResistance = 2e06;
 
 	/*For Conductance D2D variation*/
-	minResistanceSigmaDtoD = 0.3 * 5e-05;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	minResistanceSigmaDtoD = 0.1 * 5e05;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 	gaussian_dist_minResistance = new std::normal_distribution<double>(0, minResistanceSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 	maxdiftCoeffSigmaDtoD = 0.1 * 0.1;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 	gaussian_dist_maxdriftCoeff = new std::normal_distribution<double>(0, maxdiftCoeffSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
@@ -557,7 +557,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 
 	driftCoeffDepend = (maxdriftCoeff - mindriftCoeff) / (log(maxResistance) - log(minResistance));
 
-	if (x == 4 && y == 6) {
+	if (x == 4 && y == 2) {
 		cout << maxdriftCoeff << '\n';
 		cout << minResistance << '\n';
 		cout << driftCoeffDepend << '\n';
