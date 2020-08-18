@@ -46,7 +46,7 @@ Param::Param() {
 	numMnistTestImages = 10000;	// # of testing images in MNIST
 	
 	/* Algorithm parameters */
-	numTrainImagesPerEpoch = 10;	// # of training images per epoch
+	numTrainImagesPerEpoch = 3;	// # of training images per epoch
 	totalNumEpochs = 2;	// Total number of epochs
 	interNumEpochs = 1;		// Internal number of epochs (print out the results every interNumEpochs)
 	nInput = 400;     // # of neurons in input layer
