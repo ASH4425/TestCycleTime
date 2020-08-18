@@ -201,7 +201,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 									
 
-									if (j == 51 && k == 51) {
+									if (j == 60 && k == 60) {
 										cout << "Read, conductance : " << static_cast<eNVM*>(arrayIH->cell[j][k])->conductance << '\n';
 									}
 
@@ -630,15 +630,15 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									readA.close();
 								}
 								*/
-								if (jj == 51 && k == 51) {
+								if (jj == 60 && k == 60) {
 									cout << "deltaWeight : " << deltaWeight1[jj][k] << '\n';
 								}
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
-								if (jj == 51 && k == 51) {
+								if (jj == 60 && k == 60) {
 									cout << "Finish Write, Before Drift, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
 								}
 								arrayIH->DriftWriteCell(jj, k, weight1[jj][k], cycleWaitTimeIH[jj][k]);
-								if (jj == 51 && k == 51) {
+								if (jj == 60 && k == 60) {
 									cout << "After Drift, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
 									cout << '\n';
 								}

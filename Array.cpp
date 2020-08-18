@@ -273,7 +273,7 @@ void Array::WriteCell(int x, int y, double deltaWeight, double weight, double ma
 		//printf("Writing cell....\n");
         if (regular) 
         {	// Regular write
-			if (x == 51 && y == 51) {
+			if (x == 60 && y == 60) {
 				std::cout << "maxConductance at WriteCell() : " << static_cast<AnalogNVM*>(cell[x][y])->maxConductance << '\n';
 				std::cout << "minConductance at WriteCell() : " << static_cast<AnalogNVM*>(cell[x][y])->minConductance << '\n';
 				std::cout << "conductance at WriteCell() : " << static_cast<AnalogNVM*>(cell[x][y])->conductance << '\n';
