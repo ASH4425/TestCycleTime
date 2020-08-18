@@ -617,8 +617,8 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 		conductance = maxConductance;
 	}
 	
-	else if (conductance < minConductance) {
-		conductance = minConductance;
+	else if (conductance < 0.554e-06) {
+		conductance = 0.554e-06;
 	}
 	
 
