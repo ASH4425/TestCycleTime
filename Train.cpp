@@ -199,12 +199,6 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 									//if (j == 1 && k == 1) cout << "arrayIH call Read at " << param->currentEpoch << " Epoch" << '\n';
 
-									
-
-									if (j == 60 && k == 60) {
-										cout << "Read, conductance : " << static_cast<eNVM*>(arrayIH->cell[j][k])->conductance << '\n';
-									}
-
 									Isum += arrayIH->ReadCell(j, k);
 
 									inputSum += arrayIH->GetMediumCellReadCurrent(j, k);    // get current of Dummy Column as reference
@@ -630,19 +624,25 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									readA.close();
 								}
 								*/
+								/*
 								if (jj == 60 && k == 60) {
 									cout << "deltaWeight : " << deltaWeight1[jj][k] << '\n';
 								}
+								*/
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
+								/*
 								if (jj == 60 && k == 60) {
 									cout << "Finish Write, Before Drift, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
 								}
+								*/
 								arrayIH->DriftWriteCell(jj, k, weight1[jj][k], cycleWaitTimeIH[jj][k]);
+								/*
 								if (jj == 60 && k == 60) {
 									cout << "waitTime : " << cycleWaitTimeIH[jj][k] << '\n';
 									cout << "After Drift, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
 									cout << '\n';
 								}
+								*/
 
 								weight1[jj][k] = arrayIH->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayIH->cell[jj][k])->numPulse;
