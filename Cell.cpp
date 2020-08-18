@@ -282,7 +282,7 @@ RealDevice::RealDevice(int x, int y) {
 	minConductance = 0.554e-6;	// Minimum cell conductance (S)
 	avgMaxConductance = maxConductance; // Average maximum cell conductance (S)
 	avgMinConductance = minConductance; // Average minimum cell conductance (S)
-	//conductance = minConductance;	// Current conductance (S) (dynamic variable)
+	conductance = minConductance;	// Current conductance (S) (dynamic variable)
 	conductancePrev = conductance;	// Previous conductance (S) (dynamic variable)
 	readVoltage = 0.5;	// On-chip read voltage (Vr) (V)
 	readPulseWidth = 5e-9;	// Read pulse width (s) (will be determined by ADC)
@@ -627,7 +627,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 		cout << "minResistance : " << minResistance << '\n';
 		cout << "maxdriftCoeff : " << maxdriftCoeff << '\n';
 		cout << "mindriftCoeff : " << mindriftCoeff << '\n';
-		cout << "driftCoeff : " << driftCoeff << '\n';
+		cout << "driftCoeffDepend : " << driftCoeffDepend << '\n';
 		cout << '\n';
 		cout << "conductance at DriftWrite() : " << conductance << '\n';
 		cout << "WaitTime : " << waitTimeParameter << '\n';
@@ -636,8 +636,8 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 		cout << "minConductance : " << minConductance << '\n';
 	}
 	
-	if (x == 50 && y == 50) {
-		cout << "Another driftCoeff : " << driftCoeff << '\n';
+	if (x == 70 && y == 70) {
+		cout << "Another driftCoeffDepend : " << driftCoeffDepend << '\n';
 	}
 
 }
