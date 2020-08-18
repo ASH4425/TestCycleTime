@@ -628,11 +628,11 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								*/
 
 								arrayIH->WriteCell(jj, k, deltaWeight1[jj][k], weight1[jj][k], param->maxWeight, param->minWeight, true);
-								if (jj == 50 && k == 50) {
+								if (jj == 51 && k == 51) {
 									cout << "Before Drift, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
 								}
 								arrayIH->DriftWriteCell(jj, k, weight1[jj][k], cycleWaitTimeIH[jj][k]);
-								if (jj == 50 && k == 50) {
+								if (jj == 51 && k == 51) {
 									cout << "After Drift, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
 									cout << '\n';
 								}

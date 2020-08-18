@@ -622,7 +622,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	}
 	*/
 
-	if (x == 50 && y == 50) {
+	if (x == 51 && y == 51) {
 		cout << "WaitTime : " << waitTimeParameter << '\n';
 		cout << "DriftCoeff : " << driftCoeff << '\n';
 	}
