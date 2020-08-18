@@ -62,8 +62,8 @@ public:
 	double writeEnergy;	// Dynamic variable for calculation of write energy (J)
 	double conductance;	// Current conductance (S) (Dynamic variable) at on-chip Vr (different than the Vr in the reported measurement data)
 	double conductancePrev;	// Previous conductance (S) (Dynamic variable) at on-chip Vr (different than the Vr in the reported measurement data)
-	double maxConductance;	// Maximum cell conductance (S)
-	double minConductance;	// Minimum cell conductance (S)
+	const double maxConductance;	// Maximum cell conductance (S)
+	const double minConductance;	// Minimum cell conductance (S)
 	double avgMaxConductance;   // Average maximum cell conductance (S)
 	double avgMinConductance;   // Average minimum cell conductance (S)
 	bool cmosAccess;	// True: Pseudo-crossbar (1T1R), false: cross-point
