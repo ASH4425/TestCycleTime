@@ -300,6 +300,20 @@ RealDevice::RealDevice(int x, int y) {
 	resistanceAccess = 15e3;	// The resistance of transistor (Ohm) in Pseudo-crossbar array when turned ON
 	nonlinearIV = false;	// Consider I-V nonlinearity or not (Currently for cross-point array only)
 	NL = 10;    // I-V nonlinearity in write scheme (the current ratio between Vw and Vw/2), assuming for the LTP side
+
+	/*For Conductance Drift Effect*/
+	driftCoeff = 0.1;
+	driftCoeffDepend = 0.2;
+	maxdriftCoeff = 0.1;
+	mindriftCoeff = 0.0;
+	minResistance = 5e05;
+	maxResistance = 2e06;
+
+	/*For Conductance D2D variation*/
+	minResistanceSigmaDtoD = 0.035 * 5e-05;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	gaussian_dist_minResistance = new std::normal_distribution<double>(0, minResistanceSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
+	maxdiftCoeffSigmaDtoD = 0.035 * 0.1;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	gaussian_dist_maxdriftCoeff = new std::normal_distribution<double>(0, maxdiftCoeffSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 	
 	if (nonlinearIV) {  // Currently for cross-point array only
 		double Vr_exp = readVoltage;  // XXX: Modify this value to Vr in the reported measurement data (can be different than readVoltage)
@@ -334,6 +348,10 @@ RealDevice::RealDevice(int x, int y) {
 	gaussian_dist2 = new std::normal_distribution<double>(0, sigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 	paramALTP = getParamA(NL_LTP + (*gaussian_dist2)(localGen)) * maxNumLevelLTP;	// Parameter A for LTP nonlinearity
 	paramALTD = getParamA(NL_LTD + (*gaussian_dist2)(localGen)) * maxNumLevelLTD;	// Parameter A for LTD nonlinearity
+
+	/*For Conductance D2D variation*/
+	minResistance += (*gaussian_dist_minResistance)(localGen);
+	maxdriftCoeff += (*gaussian_dist_maxdriftCoeff)(localGen);
 
 	/* Cycle-to-cycle weight update variation */
 	sigmaCtoC = 0; // = 0.035 * (maxConductance - minConductance);	// Sigma of cycle-to-cycle weight update vairation: defined as the percentage of conductance range
@@ -528,20 +546,32 @@ void RealDevice::Write(double deltaWeightNormalized, double weight, double minWe
 
 void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParameter) {
 	/*Conductance Drift*/
+	/*
 	double driftCoeff;
-	double driftCoeffDepend = 0.2;
+	double driftCoeffDepend;
 	double maxdriftCoeff = 0.1;
 	double mindriftCoeff = 0.0;
+	double minResistance = 5e05;
+	double maxResistance = 2e06;
+	*/
 
+	driftCoeffDepend = (maxdriftCoeff - mindriftCoeff) / (maxResistance - minResistance);
 
-	double r;
-	r = 1e+04;
+	if (x == 1 && y == 1) {
+		cout << maxdriftCoeff << '\n';
+		cout << minResistance << '\n';
+		cout << driftCoeffDepend << '\n';
+		cout << '\n';
+	}
 
-	if (conductance > 4e-06) {
-		driftCoeff = 0.0;
+	if (1 / conductance < minResistance) {
+		driftCoeff = mindriftCoeff;
+	}
+	else if (1 / conductance > maxResistance) {
+		driftCoeff = maxdriftCoeff;
 	}
 	else {
-		driftCoeff = driftCoeffDepend * log(0.5e-06 / conductance) + 0.1;
+		driftCoeff = driftCoeffDepend * log(maxResistance / (1/conductance)) + maxdriftCoeff;
 	}
 
 	if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
@@ -554,7 +584,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	}
 	*/
 
-	conductance *= pow((1e-03 / waitTimeParameter), 0);
+	conductance *= pow((1e-03 / waitTimeParameter), driftCoeff);
 
 	/*
 	if (x == 1 && y == 1) {

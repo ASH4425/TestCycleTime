@@ -1184,13 +1184,13 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 				}
 			}
 
-			
+			/*
 			if (batchSize == numTrain - 1 && (param->currentEpoch == param->totalNumEpochs)) {
 
 				for (int m = 0; m < param->nHide; m++) {
 					for (int i = 0; i < 4; i++) {
 						for (int n = 100 * i; n < 100 * (i + 1); n++) {
-							string filenameC = "weightIHw/oDrift";
+							string filenameC = "weightIHD2D";
 							std::ofstream readC;
 							readC.open(filenameC + ".csv", std::ios_base::app);
 							readC << endl;
@@ -1203,7 +1203,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 				for (int m = 0; m < param->nOutput; m++) {
 					for (int i = 0; i < 4; i++) {
 						for (int n = 25 * i; n < 25 * (i + 1); n++) {
-								string filenameD = "weightHOw/oDrift";
+								string filenameD = "weightHOD2D";
 								std::ofstream readD;
 								readD.open(filenameD + ".csv", std::ios::out | std::ios_base::app);
 								readD << endl;
@@ -1215,7 +1215,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 					}
 				}
 			}// end of weight tracking code
-			
+			*/
 		}
 	}
 }
