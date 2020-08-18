@@ -1194,7 +1194,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 				for (int m = 0; m < param->nHide; m++) {
 					for (int i = 0; i < 4; i++) {
 						for (int n = 100 * i; n < 100 * (i + 1); n++) {
-							string filenameC = "weightIHD2D1";
+							string filenameC = "weightIHNoVar";
 							std::ofstream readC;
 							readC.open(filenameC + ".csv", std::ios_base::app);
 							readC << endl;
@@ -1207,7 +1207,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 				for (int m = 0; m < param->nOutput; m++) {
 					for (int i = 0; i < 4; i++) {
 						for (int n = 25 * i; n < 25 * (i + 1); n++) {
-								string filenameD = "weightHOD2D1";
+								string filenameD = "weightHONoVar";
 								std::ofstream readD;
 								readD.open(filenameD + ".csv", std::ios::out | std::ios_base::app);
 								readD << endl;
