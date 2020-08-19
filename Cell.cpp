@@ -589,7 +589,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 		/*driftCoeff C2C variation*/
 	extern std::mt19937 gen;
 	if (driftCoeffSigmaC2C != 0) {
-		driftCeoff += (*gaussian_dist_driftCoeff)(gen);
+		driftCoeff += (*gaussian_dist_driftCoeff)(gen);
 	}
 
 	/*
