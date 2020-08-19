@@ -310,9 +310,9 @@ RealDevice::RealDevice(int x, int y) {
 	maxResistance = 2e06;
 
 	/*For Drift D2D variation*/
-	minResistanceSigmaDtoD = 0.1 * 5e05;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	minResistanceSigmaDtoD = 0.0 * 5e05;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 	gaussian_dist_minResistance = new std::normal_distribution<double>(0, minResistanceSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
-	maxdriftCoeffSigmaDtoD = 0.1 * 0.1;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	maxdriftCoeffSigmaDtoD = 0.0 * 0.1;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 	gaussian_dist_maxdriftCoeff = new std::normal_distribution<double>(0, maxdriftCoeffSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 	
 	if (nonlinearIV) {  // Currently for cross-point array only
@@ -358,7 +358,7 @@ RealDevice::RealDevice(int x, int y) {
 	gaussian_dist3 = new std::normal_distribution<double>(0, sigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
 
 	/*For Drift C2C variation*/
-	driftCoeffSigmaC2C = 0;
+	driftCoeffSigmaC2C = 0 * driftCoeff;
 	gaussian_dist_driftCoeff = new std::normal_distribution<double>(0, driftCoeffSigmaC2C);
 
 	/* Conductance range variation */
@@ -586,13 +586,18 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
 	if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
-		/*driftCoeff C2C variation*/
-	/*
-	extern std::mt19937 gen;
-	if (driftCoeffSigmaC2C != 0) {
-		driftCoeff += (*gaussian_dist_driftCoeff)(gen);
+
+	if (x == 60 && y == 60) {
+		cout << "driftCoeff : " << driftCoeff << '\n';
+		cout << "driftCoeffSigmaC2C : " << driftCoeffSigmaC2C << '\n';
+		cout << '\n';
 	}
-	*/
+		/*driftCoeff C2C variation*/
+		extern std::mt19937 gen;
+		if (driftCoeffSigmaC2C != 0) {
+			driftCoeff += (*gaussian_dist_driftCoeff)(gen);
+		}
+	
 
 	/*
 	if (x == 60 && y == 60) {
