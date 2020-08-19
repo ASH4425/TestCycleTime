@@ -586,14 +586,13 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	if (driftCoeff < mindriftCoeff) driftCoeff = mindriftCoeff;
 	if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
-	/*
+	
 	if (x == 60 && y == 60) {
-		cout << "maxdriftCoeff : " << maxdriftCoeff << '\n';
-		//cout << "driftCoeff : " << driftCoeff << '\n';
+		//cout << "maxdriftCoeff : " << maxdriftCoeff << '\n';
+		cout << "driftCoeff Before C2C : " << driftCoeff << '\n';
 		cout << "driftCoeffSigmaC2C : " << driftCoeffSigmaC2C << '\n';
-		cout << '\n';
 	}
-	*/
+	
 		/*driftCoeff C2C variation*/
 		extern std::mt19937 gen;
 		if (driftCoeffSigmaC2C != 0) {
@@ -601,6 +600,11 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 		}
 		
 	if (driftCoeff < 0) driftCoeff = 0;
+
+	if (x == 60 && y == 60) {
+		cout << "driftCoeff After C2C : " << driftCoeff << '\n';
+		cout << '\n';
+	}
 
 	/*
 	if (x == 60 && y == 60) {
