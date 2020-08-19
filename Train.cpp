@@ -1202,7 +1202,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 				}
 			}
 
-			
+			/*
 			if (batchSize == numTrain - 1 && (param->currentEpoch == param->totalNumEpochs)) {
 
 				for (int m = 0; m < param->nHide; m++) {
@@ -1233,7 +1233,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 					}
 				}
 			}// end of weight tracking code
-			
+			*/
 		}
 	}
 }
