@@ -1233,7 +1233,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 					}
 				}
 			}// end of weight tracking code
-			*/
+			
 		}
 	}
 }
