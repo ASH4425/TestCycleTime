@@ -83,9 +83,12 @@ public:
 	std::normal_distribution<double> *gaussian_dist_maxConductance;	// Normal distribution object
 	std::normal_distribution<double> *gaussian_dist_minConductance;	// Normal distribution object
 
-	/*For Conductance D2D variation*/
+	/*For Drift D2D variation*/
 	std::normal_distribution<double>* gaussian_dist_minResistance;	// Normal distribution object
 	std::normal_distribution<double>* gaussian_dist_maxdriftCoeff;	// Normal distribution object
+
+	/*For Drift C2C variation*/
+	std::normal_distribution<double>* gaussian_dist_driftCoeff;	// Normal distribution object
 
 	/* Need the 4 variables below if nonlinearIV=true */
 	double conductanceAtVwLTP;		// Conductance at the LTP write voltage
@@ -108,9 +111,12 @@ public:
 	double minResistance;
 	double maxResistance;
 
-	/*For Conductance D2D variation*/
+	/*For Drift D2D variation*/
 	double minResistanceSigmaDtoD;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 	double maxdiftCoeffSigmaDtoD;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+
+	/*For Drift C2C variation*/
+	double driftCoeffSigmaC2C;
 	
 
 
