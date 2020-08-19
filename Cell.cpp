@@ -600,7 +600,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 			driftCoeff += (*gaussian_dist_driftCoeff)(gen);
 		}
 		
-	//if (driftCoeff < 0) driftCoeff = 0;
+	if (driftCoeff < 0) driftCoeff = 0;
 
 	/*
 	if (x == 60 && y == 60) {
