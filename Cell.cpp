@@ -592,13 +592,15 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 		driftCoeff += (*gaussian_dist_driftCoeff)(gen);
 	}
 
-	/*
+	
 	if (x == 60 && y == 60) {
 		cout << "conductance at DriftWrite() before : " << conductance << '\n';
 		//cout << "WaitTime : " << waitTimeParameter << '\n';
+		cout << "minResistance : " << minResistance << '\n';
+		cout << "maxdriftCoeff : " << maxdriftCoeff << '\n';
 		cout << "driftCoeff : " << driftCoeff << '\n';
 	}
-	*/
+	
 	
 	/*
 	if (x == 1 && y == 1) {
@@ -642,11 +644,11 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 		conductance = minConductance;
 	}
 	
-	/*
+	
 	if (x == 60 && y == 60) {
 		cout << "conductance at DriftWrite() after : " << conductance << '\n';
 	}
-	*/
+	
 	
 	
 }
