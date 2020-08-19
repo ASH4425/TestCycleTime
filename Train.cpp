@@ -1203,7 +1203,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			}
 
 			
-			if (batchSize == numTrain - 1 && (param->currentEpoch == 20//param->totalNumEpochs)) {
+			if (batchSize == numTrain - 1 && (param->currentEpoch == 20)) {
 
 				for (int m = 0; m < param->nHide; m++) {
 					for (int i = 0; i < 4; i++) {
