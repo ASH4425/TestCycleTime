@@ -358,7 +358,7 @@ RealDevice::RealDevice(int x, int y) {
 	gaussian_dist3 = new std::normal_distribution<double>(0, sigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
 
 	/*For Drift C2C variation*/
-	driftCoeffSigmaC2C = 0.1 * 0.1;
+	driftCoeffSigmaC2C = 0.03 * 0.1;
 	gaussian_dist_driftCoeff = new std::normal_distribution<double>(0, driftCoeffSigmaC2C);
 
 	/* Conductance range variation */
@@ -588,7 +588,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 
 	
 	if (x == 60 && y == 60) {
-		//cout << "maxdriftCoeff : " << maxdriftCoeff << '\n';
+		cout << "weight : " << weight << '\n';
 		cout << "driftCoeff Before C2C : " << driftCoeff << '\n';
 		cout << "driftCoeffSigmaC2C : " << driftCoeffSigmaC2C << '\n';
 	}
