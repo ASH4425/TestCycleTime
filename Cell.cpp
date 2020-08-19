@@ -310,9 +310,9 @@ RealDevice::RealDevice(int x, int y) {
 	maxResistance = 2e06;
 
 	/*For Drift D2D variation*/
-	minResistanceSigmaDtoD = 0.0 * 5e05;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	minResistanceSigmaDtoD = 0.05 * 5e05;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 	gaussian_dist_minResistance = new std::normal_distribution<double>(0, minResistanceSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
-	maxdriftCoeffSigmaDtoD = 0.0 * 0.1;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	maxdriftCoeffSigmaDtoD = 0.05 * 0.1;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 	gaussian_dist_maxdriftCoeff = new std::normal_distribution<double>(0, maxdriftCoeffSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 	
 	if (nonlinearIV) {  // Currently for cross-point array only
