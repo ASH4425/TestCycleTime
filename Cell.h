@@ -113,7 +113,7 @@ public:
 
 	/*For Drift D2D variation*/
 	double minResistanceSigmaDtoD;	// Sigma of device-to-device minResistance vairation in gaussian distribution
-	double maxdiftCoeffSigmaDtoD;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	double maxdriftCoeffSigmaDtoD;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 
 	/*For Drift C2C variation*/
 	double driftCoeffSigmaC2C;

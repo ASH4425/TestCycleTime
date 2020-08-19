@@ -312,8 +312,8 @@ RealDevice::RealDevice(int x, int y) {
 	/*For Drift D2D variation*/
 	minResistanceSigmaDtoD = 0.0 * 5e05;	// Sigma of device-to-device minResistance vairation in gaussian distribution
 	gaussian_dist_minResistance = new std::normal_distribution<double>(0, minResistanceSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
-	maxdiftCoeffSigmaDtoD = 0.0 * 0.1;	// Sigma of device-to-device minResistance vairation in gaussian distribution
-	gaussian_dist_maxdriftCoeff = new std::normal_distribution<double>(0, maxdiftCoeffSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
+	maxdriftCoeffSigmaDtoD = 0.0 * 0.1;	// Sigma of device-to-device minResistance vairation in gaussian distribution
+	gaussian_dist_maxdriftCoeff = new std::normal_distribution<double>(0, maxdriftCoeffSigmaDtoD);	// Set up mean and stddev for device-to-device weight update vairation
 	
 	if (nonlinearIV) {  // Currently for cross-point array only
 		double Vr_exp = readVoltage;  // XXX: Modify this value to Vr in the reported measurement data (can be different than readVoltage)
@@ -358,7 +358,7 @@ RealDevice::RealDevice(int x, int y) {
 	gaussian_dist3 = new std::normal_distribution<double>(0, sigmaCtoC);    // Set up mean and stddev for cycle-to-cycle weight update vairation
 
 	/*For Drift C2C variation*/
-	driftCoeffSigmaC2C = 0 * driftCoeff;
+	driftCoeffSigmaC2C = 0;
 	gaussian_dist_driftCoeff = new std::normal_distribution<double>(0, driftCoeffSigmaC2C);
 
 	/* Conductance range variation */
@@ -587,10 +587,12 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	if (driftCoeff > maxdriftCoeff) driftCoeff = maxdriftCoeff;
 
 		/*driftCoeff C2C variation*/
+	/*
 	extern std::mt19937 gen;
 	if (driftCoeffSigmaC2C != 0) {
 		driftCoeff += (*gaussian_dist_driftCoeff)(gen);
 	}
+	*/
 
 	/*
 	if (x == 60 && y == 60) {
