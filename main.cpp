@@ -128,7 +128,7 @@ int main() {
 	srand(0);	// Pseudorandom number seed
 	
 	ofstream mywriteoutfile;
-	mywriteoutfile.open("withDriftC2C5Ree.csv");                                                                                                            
+	mywriteoutfile.open("withDriftC2C2.csv");                                                                                                            
 	
 	for (int i=1; i<=param->totalNumEpochs/param->interNumEpochs; i++) {
 
