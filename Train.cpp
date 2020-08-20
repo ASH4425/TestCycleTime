@@ -1218,7 +1218,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			/*Time Estimation*/
 			auto afterWW = std::chrono::high_resolution_clock::now();
 			cout << "Write latency : " << std::chrono::duration_cast<std::chrono::nanoseconds>(afterWW-beforeWW).count() << "ns" << '\n';
-
+			cout << '\n';
 			
 			if (batchSize == numTrain - 1 && (param->currentEpoch == param->totalNumEpochs)) {
 
