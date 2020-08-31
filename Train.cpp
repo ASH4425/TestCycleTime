@@ -1239,6 +1239,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			if (batchSize == numTrain - 2 && (param->currentEpoch == param->totalNumEpochs)) {
 				param->isFinalTrain = true;
 			}
+			else {
+				param->isFinalTrain = false;
+			}
 
 			if (batchSize == numTrain - 1 && (param->currentEpoch == param->totalNumEpochs)) {
 
