@@ -149,7 +149,9 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			/* First layer (input layer to the hidden layer) */
 			
 			/*Time Estimation*/
+			/*
 			auto readStart = std::chrono::high_resolution_clock::now();
+			*/
 
 			std::fill_n(outN1, param->nHide, 0);
 			std::fill_n(a1, param->nHide, 0);
@@ -477,8 +479,10 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			// Backpropagation
 			/* Second layer (hidden layer to the output layer) */
 			/*Time estimation*/
+			/*/
 			auto beforeBP = std::chrono::high_resolution_clock::now();
 			cout << "Read ~ Before BP : " << std::chrono::duration_cast<std::chrono::nanoseconds>(beforeBP-readStart).count() << "ns" << '\n';
+			*/
 
 			for (int j = 0; j < param->nOutput; j++) {
 				s2[j] = -2 * a2[j] * (1 - a2[j]) * (Output[i][j] - a2[j]);
@@ -495,8 +499,10 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 
 			// Weight update
 			/* Update weight of the first layer (input layer to the hidden layer) */
+			/*
 			auto beforeWW = std::chrono::high_resolution_clock::now();
 			cout << "BP ~ Before Weight update : " << std::chrono::duration_cast<std::chrono::nanoseconds>(beforeWW-beforeBP).count() << "ns" << '\n';
+			*/
 
 			if (param->useHardwareInTrainingWU) {
 				double sumArrayWriteEnergy = 0;   // Use a temporary variable here since OpenMP does not support reduction on class member
@@ -1224,10 +1230,11 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			}
 
 			/*Time Estimation*/
+			/*
 			auto afterWW = std::chrono::high_resolution_clock::now();
 			cout << "Write latency : " << std::chrono::duration_cast<std::chrono::nanoseconds>(afterWW-beforeWW).count() << "ns" << '\n';
 			cout << '\n';
-			
+			*/
 
 			if (batchSize == numTrain - 2 && (param->currentEpoch == param->totalNumEpochs)) {
 				param->isFinalTrain = true;
