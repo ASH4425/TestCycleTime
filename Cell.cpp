@@ -626,7 +626,7 @@ void RealDevice::DriftWrite(int x, int y, double weight, double waitTimeParamete
 	}
 	*/
 
-	conductance *= pow((1e-03 / 0.1), driftCoeff);
+	conductance *= pow((1e-06 / 60), driftCoeff);
 
 
 

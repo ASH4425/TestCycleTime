@@ -87,6 +87,9 @@ public:
 	/*Check current Epoch*/
 	int currentEpoch;
 
+	/*Check final training*/
+	bool isFinalTrain;
+
 };
 
 #endif

@@ -304,6 +304,7 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 					subArrayIH->activityRowRead = (double)numActiveRows / param->nInput / param->numBitInput;
 					subArrayIH->readDynamicEnergy += NeuroSimSubArrayReadEnergy(subArrayIH);
 					subArrayIH->readDynamicEnergy += NeuroSimNeuronReadEnergy(subArrayIH, adderIH, muxIH, muxDecoderIH, dffIH, subtractorIH);
+					/*readLatency for synapse and neuron*/
 					subArrayIH->readLatency += NeuroSimSubArrayReadLatency(subArrayIH);
 					subArrayIH->readLatency += NeuroSimNeuronReadLatency(subArrayIH, adderIH, muxIH, muxDecoderIH, dffIH, subtractorIH);
 				}
@@ -648,7 +649,10 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 									cout << "Finish Write, Before Drift, conductance : " << static_cast<eNVM*>(arrayIH->cell[jj][k])->conductance << '\n';
 								}
 								*/
-								arrayIH->DriftWriteCell(jj, k, weight1[jj][k], cycleWaitTimeIH[jj][k]);
+								if (param->isFinalTrain) {
+									arrayIH->DriftWriteCell(jj, k, weight1[jj][k], cycleWaitTimeIH[jj][k]);
+								}
+								
 								/*
 								if (jj == 60 && k == 60) {
 									cout << "waitTime : " << cycleWaitTimeIH[jj][k] << '\n';
@@ -1012,7 +1016,11 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 								*/
 
 								arrayHO->WriteCell(jj, k, deltaWeight2[jj][k], weight2[jj][k], param->maxWeight, param->minWeight, true);
-								arrayHO->DriftWriteCell(jj, k, weight2[jj][k], cycleWaitTimeHO[jj][k]);
+
+								if (param->isFinalTrain) {
+									arrayHO->DriftWriteCell(jj, k, weight2[jj][k], cycleWaitTimeHO[jj][k]);
+								}
+								
 
 								weight2[jj][k] = arrayHO->ConductanceToWeight(jj, k, param->maxWeight, param->minWeight);
 								weightChangeBatch = weightChangeBatch || static_cast<AnalogNVM*>(arrayHO->cell[jj][k])->numPulse;
@@ -1220,6 +1228,11 @@ void Train(const int numTrain, const int epochs, char* optimization_type) {
 			cout << "Write latency : " << std::chrono::duration_cast<std::chrono::nanoseconds>(afterWW-beforeWW).count() << "ns" << '\n';
 			cout << '\n';
 			
+
+			if (batchSize == numTrain - 2 && (param->currentEpoch == param->totalNumEpochs)) {
+				param->isFinalTrain = true;
+			}
+
 			if (batchSize == numTrain - 1 && (param->currentEpoch == param->totalNumEpochs)) {
 
 				for (int m = 0; m < param->nHide; m++) {
